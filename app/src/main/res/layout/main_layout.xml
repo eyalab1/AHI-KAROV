@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="MainFragment">
+
+
+<!--     welcome back-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/UserName_title"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_marginTop="16dp"
+            android:hint="Welcome Back XXX"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    my center-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/My_center_title"
+            android:layout_width="match_parent"
+            android:layout_height="167dp"
+            android:hint="My center"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+<!-- peace of mind-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/peace_of_mind_title"
+            android:layout_width="match_parent"
+            android:layout_height="167dp"
+            android:hint="Peace of mind"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+<!-- Emotion Journal-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Emotion_journal_title"
+            android:layout_width="match_parent"
+            android:layout_height="167dp"
+            android:hint="Emotion Journal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    SOS and Support-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/SOS_and_support_title"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="SOS and Support"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+</LinearLayout>

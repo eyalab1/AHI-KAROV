@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">אחי קרוב</string>
+<!--    Layouts-->
+<!--    main_layout-->
+    <string name="main_welcome">ברוך שובך XXX</string>
+    <string name="main_center">העוגנים שלי</string>
+    <string name="main_peace">שלווה וביטחון</string>
+    <string name="main_journal">יומן רגשות</string>
+    <string name="main_sos">SOS ותמיכה</string>
+
+    <!--   emotion_journal_layout-->
+    <string name="journal_label">XXXXX</string>
+
+    <!--   my_center_layout-->
+    <string name="center_title">העוגנים שלי</string>
+    <string name="btn_pick_image">בחר תמונה</string>
+    <string name="btn_finish">סיום</string>
+    <string name="img_desc_placeholder">תמונה נבחרת</string>
+
+    <!--    peace_of_mind_layout-->
+    <string name="peace_placeholder_text">XXXXX</string>
+
+    <!--    sos_and_support_layout-->
+    <string name="sos_steps_title">צעדים לרוגע</string>
+    <string name="sos_step_breathe">לנשום</string>
+
+</resources>

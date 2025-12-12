@@ -1,3 +1,32 @@
 <resources>
+
+
+
     <string name="app_name">AHI KAROV</string>
+
+    <!--    LAYOUTS-->
+
+<!--    main_layout-->
+    <string name="main_welcome">Welcome Back XXX</string>
+    <string name="main_center">My center</string>
+    <string name="main_peace">Peace of mind</string>
+    <string name="main_journal">Emotion Journal</string>
+    <string name="main_sos">SOS and Support</string>
+
+<!--    emotion_journal_layout-->
+    <string name="journal_label">XXXXX</string>
+
+    <!--    my_center_layout-->
+    <string name="center_title">My Center</string>
+    <string name="btn_pick_image">Pick Image</string>
+    <string name="btn_finish">Finish</string>
+    <string name="img_desc_placeholder">Selected Image</string>
+
+    <!--    peace_of_mind_layout-->
+    <string name="peace_placeholder_text">XXXXX</string>
+
+    <!--    sos_and_support_layout-->
+    <string name="sos_steps_title">Steps to Calm</string>
+    <string name="sos_step_breathe">Breathe</string>
+
 </resources>

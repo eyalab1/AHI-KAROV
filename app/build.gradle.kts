@@ -5,10 +5,11 @@ plugins {
 
 android {
     namespace = "com.first.ahikarov"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
+    buildFeatures {
+        viewBinding = true
+    }
     defaultConfig {
         applicationId = "com.first.ahikarov"
         minSdk = 24
@@ -43,6 +44,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
