@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/our_nav">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/our_nav"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.first.ahikarov.MainFragment"
+        android:label="Main Menu"
+        tools:layout="@layout/main_layout">
+
+        <action
+            android:id="@+id/action_main_to_center_main"
+            app:destination="@id/myCenterFragmentMain" />
+
+        <action
+            android:id="@+id/action_main_to_sos"
+            app:destination="@id/sosAndSupportFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myCenterFragmentMain"
+        android:name="com.first.ahikarov.MyCenterFragmentMain"
+        android:label="My Center Main"
+        tools:layout="@layout/my_center_main_layout">
+
+        <action
+            android:id="@+id/action_center_main_to_add"
+            app:destination="@id/myCenterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myCenterFragment"
+        android:name="com.first.ahikarov.MyCenterFragment"
+        android:label="Add New Item"
+        tools:layout="@layout/my_center_layout" />
+
+    <fragment
+        android:id="@+id/sosAndSupportFragment"
+        android:name="com.first.ahikarov.SosAndSupportFragment"
+        android:label="SOS and Support"
+        tools:layout="@layout/sos_and_support_layout" />
 
 </navigation>

@@ -1,38 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="SosAndSupportFragment">
+    android:fillViewport="true"
+    android:background="#F2F6FC"
+    tools:context =".SosAndSupportFragment">
 
 
     <!--  safety plan-->
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Steps_to_Calm_title"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grounding_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp"
+            android:textColor="#546E7A"/>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_marginTop="16dp"
-            android:hint="Steps to Calm"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF">
 
-<!--the list-->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Step_one_title"
+                <TextView
+                    android:id="@+id/tvInstructions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_0_instruction"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:id="@+id/inputsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/etInput1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:padding="12dp"
+                        android:background="@android:drawable/edit_text"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:padding="12dp"
+                        android:background="@android:drawable/edit_text"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:padding="12dp"
+                        android:background="@android:drawable/edit_text"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:padding="12dp"
+                        android:background="@android:drawable/edit_text"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:padding="12dp"
+                        android:background="@android:drawable/edit_text"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:text="@string/btn_ready"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_marginTop="16dp"
-            android:hint="breathe"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:max="6"
+            android:progress="0"/>
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
