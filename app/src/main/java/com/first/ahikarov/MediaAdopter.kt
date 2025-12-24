@@ -1,0 +1,36 @@
+package com.first.ahikarov
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.first.ahikarov.databinding.ItemSquareImageBinding
+
+class MediaAdapter(private val items: List<Item>,private val onItemLongClick: (Item) -> Unit)
+    : RecyclerView.Adapter<MediaAdapter.MediaViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaViewHolder {
+        val binding = ItemSquareImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MediaViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: MediaViewHolder, position: Int) {
+        holder.bind(items[position], onItemLongClick)
+    }
+
+    override fun getItemCount(): Int = items.size
+
+
+    class MediaViewHolder(private val binding: ItemSquareImageBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: Item, onLongClick: (Item) -> Unit) {
+            binding.itemTitle.text = item.title
+            binding.itemImage.setImageResource(R.mipmap.ic_launcher)
+
+
+            binding.root.setOnLongClickListener {
+                onLongClick(item)
+                true
+            }
+        }
+    }
+}
