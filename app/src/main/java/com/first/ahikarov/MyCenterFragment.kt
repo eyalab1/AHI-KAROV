@@ -26,17 +26,27 @@ class MyCenterFragment : Fragment() {
     private var selectedImageUri: Uri? = null
     private var selectedAudioUri: Uri? = null
 
-    // בוחר תמונות
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    // --- שינוי: בוחר תמונות עם הרשאה קבועה (OpenDocument במקום GetContent) ---
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
+            try {
+                // המפתח הקבוע שהמרצה דיבר עליו 🔑
+                requireContext().contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
             selectedImageUri = uri
-            Toast.makeText(requireContext(), "Image Selected!", Toast.LENGTH_SHORT).show()
             binding.resultImage.setImageURI(null)
             binding.resultImage.setImageURI(uri)
+            Toast.makeText(requireContext(), "Image Selected!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // בוחר שירים (עם הרשאה קבועה)
+    // בוחר שירים (כבר היה תקין עם OpenDocument)
     private val pickAudioLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
             try {
@@ -70,25 +80,17 @@ class MyCenterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. אתחול ראשוני: מכבים את הכפתור (כי אין עדיין כותרת)
         validateButtonState()
 
-        // 2. מאזין לשינויי טקסט בכותרת (הבונוס הגדול!) ✍️
         binding.etItemTitle.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                // בכל פעם שהטקסט משתנה - בודקים אם להדליק את הכפתור
-                validateButtonState()
-            }
+            override fun afterTextChanged(s: Editable?) { validateButtonState() }
         })
 
-        // 3. מאזין לספינר (בחירה)
         binding.typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 updateViewBasedOnSelection(position)
-                // גם כשמשנים סוג (למשל לציטוט), צריך לבדוק אם להדליק את הכפתור
                 validateButtonState()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -98,37 +100,27 @@ class MyCenterFragment : Fragment() {
             saveNewItem()
         }
 
+        // --- שינוי: בגלל שעברנו ל-OpenDocument, צריך להעביר מערך של Mime Types ---
         binding.imageBtn.setOnClickListener {
-            pickImageLauncher.launch("image/*")
+            pickImageLauncher.launch(arrayOf("image/*"))
         }
 
         binding.btnPickAudio.setOnClickListener {
             pickAudioLauncher.launch(arrayOf("audio/*"))
         }
-
-        // סגירת מקלדת בלחיצה על הרקע
-        binding.root.setOnClickListener {
-            // קוד לסגירת מקלדת (אופציונלי, כמו שדיברנו קודם)
-        }
     }
 
-    // --- פונקציה חדשה: בדיקת תקינות הכפתור ---
     private fun validateButtonState() {
         val selectedType = binding.typeSpinner.selectedItemPosition
         val titleText = binding.etItemTitle.text.toString().trim()
 
-        // האם מותר לשמור?
         val enableButton = if (selectedType == TYPE_QUOTE) {
-            // בציטוט תמיד מותר (כי הכותרת מוסתרת)
-            true
+            binding.etQuote.text.toString().trim().isNotEmpty() // בציטוט נבדוק שהציטוט לא ריק
         } else {
-            // בתמונה/שיר - מותר רק אם יש כותרת
             titleText.isNotEmpty()
         }
 
         binding.finishBtn.isEnabled = enableButton
-
-        // שינוי ויזואלי: אם מכובה -> חצי שקוף (אפור), אם דלוק -> צבע מלא
         binding.finishBtn.alpha = if (enableButton) 1.0f else 0.5f
     }
 
@@ -156,11 +148,6 @@ class MyCenterFragment : Fragment() {
 
         if (selectedType == TYPE_QUOTE) {
             titleText = ""
-        } else {
-            if (titleText.isEmpty()) {
-                // זה לא אמור לקרות כי הכפתור מכובה, אבל ליתר ביטחון
-                return
-            }
         }
 
         var newItem: Item? = null
@@ -170,6 +157,7 @@ class MyCenterFragment : Fragment() {
                 if (selectedImageUri != null) {
                     val description = binding.etItemDescription.text.toString()
                     newItem = Item(
+                        id = 0, // או המזהה הנכון אם זו עריכה
                         title = titleText,
                         text = description,
                         photo = selectedImageUri.toString(),
@@ -183,6 +171,7 @@ class MyCenterFragment : Fragment() {
             TYPE_SONG -> {
                 if (selectedAudioUri != null) {
                     newItem = Item(
+                        id = 0,
                         title = titleText,
                         text = selectedAudioUri.toString(),
                         photo = null,
@@ -197,6 +186,7 @@ class MyCenterFragment : Fragment() {
                 val quote = binding.etQuote.text.toString()
                 if (quote.isNotEmpty()) {
                     newItem = Item(
+                        id = 0,
                         title = titleText,
                         text = quote,
                         photo = null,
