@@ -34,8 +34,10 @@ class DetailItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.chosenItem.observe(viewLifecycleOwner) { item ->
+            if (item == null) return@observe
 
-            // 1. כותרת
+
+
             if (item.title.isEmpty()) {
                 binding.detailTitle.visibility = View.GONE
             } else {
