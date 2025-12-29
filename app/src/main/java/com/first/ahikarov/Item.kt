@@ -1,24 +1,28 @@
 package com.first.ahikarov
 
+import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+@Entity(tableName = "my_center_items")
 data class Item(
-    val id: String,          // מזהה ייחודי
-    val title: String,       // כותרת (או תוכן המשפט)
-    //val description: String, // תיאור משני
-    val text: String?,       //טקסט המופיע
-    val photo: String?,      // נתיב לתמונה
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "item_id")
+    val id: Int = 0,
+
+    @ColumnInfo(name = "item_title")
+    val title: String,
+
+    @ColumnInfo(name = "item_text")
+    val text: String?,
+
+    @ColumnInfo(name = "item_image_url")
+    val photo: String?,
+
+    @ColumnInfo(name = "item_type")
     val type: Int
-)
-
-// המחסן המרכזי
-object ItemManager {
-
-    val items: MutableList<Item> = mutableListOf()
-
-    fun add(item: Item) {
-        items.add(item)
-    }
-
-    fun remove(item: Item) {
-        items.remove(item)
-    }
-}
+) : Parcelable
