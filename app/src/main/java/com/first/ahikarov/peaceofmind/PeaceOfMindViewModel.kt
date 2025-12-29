@@ -5,10 +5,12 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import java.util.Locale
 
 class PeaceOfMindViewModel : ViewModel() {
 
-    enum class BreathingState { IDLE, INHALE, HOLD_IN, EXHALE }
+    enum class BreathingState { IDLE, INHALE, HOLD_IN, EXHALE, HOLD_OUT }
 
     private val _currentState = MutableLiveData<BreathingState>(BreathingState.IDLE)
     val currentState: LiveData<BreathingState> = _currentState
@@ -17,10 +19,14 @@ class PeaceOfMindViewModel : ViewModel() {
     val isActive: LiveData<Boolean> = _isActive
 
     private val _cycleCount = MutableLiveData<Int>(0)
-    val cycleCount: LiveData<Int> = _cycleCount
+    val formattedCycles: LiveData<String> = _cycleCount.map { count -> "מחזור $count" }
 
     private val _secondsElapsed = MutableLiveData<Int>(0)
-    val secondsElapsed: LiveData<Int> = _secondsElapsed
+    val formattedTime: LiveData<String> = _secondsElapsed.map { totalSeconds ->
+        val minutes = totalSeconds / 60
+        val seconds = totalSeconds % 60
+        String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+    }
 
     private val handler = Handler(Looper.getMainLooper())
     private var timerRunnable: Runnable? = null
@@ -29,7 +35,12 @@ class PeaceOfMindViewModel : ViewModel() {
         val nextStatus = !(_isActive.value ?: false)
         _isActive.value = nextStatus
         
-        if (nextStatus) startTimer() else resetSession()
+        if (nextStatus) {
+            startTimer()
+            _currentState.value = BreathingState.INHALE
+        } else {
+            resetSession()
+        }
     }
 
     private fun resetSession() {
@@ -54,11 +65,22 @@ class PeaceOfMindViewModel : ViewModel() {
         timerRunnable?.let { handler.removeCallbacks(it) }
     }
 
-    fun updateState(state: BreathingState) = doIfActive { _currentState.value = state }
+    fun onStepFinished() {
+        if (_isActive.value != true) return
+        
+        val nextState = when (_currentState.value) {
+            BreathingState.INHALE -> BreathingState.HOLD_IN
+            BreathingState.HOLD_IN -> BreathingState.EXHALE
+            BreathingState.EXHALE -> BreathingState.HOLD_OUT
+            BreathingState.HOLD_OUT -> {
+                _cycleCount.value = (_cycleCount.value ?: 0) + 1
+                BreathingState.INHALE
+            }
+            else -> BreathingState.IDLE
+        }
+        _currentState.value = nextState
+    }
 
-    fun incrementCycle() = doIfActive { _cycleCount.value = (_cycleCount.value ?: 0) + 1 }
-
-    // פונקציית עזר למניעת חזרתיות על בדיקת isActive
     private inline fun doIfActive(action: () -> Unit): Boolean {
         return if (_isActive.value == true) {
             action()
