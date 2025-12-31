@@ -11,7 +11,7 @@
     <string name="journal_label">XXXXX</string>
 
 
-<!--    my center-->
+<!--    my center layout-->
     <string name="center_title">My Center</string>
     <string name="label_select_type">Select Type</string>
     <string name="type_image">Image</string>
@@ -33,6 +33,14 @@
     <string name="title_my_pictures">My Pictures</string>
     <string name="title_my_songs">My Songs</string>
     <string name="title_my_quotes">My Inspiration Quotes</string>
+
+    <!--    my center fragment-->
+    <string name="btn_update_item">Update Item</string>
+    <string name="btn_save_new_item">Save New Item</string>
+    <string name="msg_audio_updated">Audio Updated! ✅</string>
+    <string name="msg_audio_loaded">Current Audio File (Loaded)</string>
+
+
 
 
 

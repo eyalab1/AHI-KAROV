@@ -48,6 +48,10 @@
     <fragment
         android:id="@+id/detailItemFragment"
         android:name="com.first.ahikarov.DetailItemFragment"
-        android:label="DetailItemFragment" />
+        android:label="DetailItemFragment" >
+        <action
+            android:id="@+id/action_detailItemFragment_to_myCenterFragment"
+            app:destination="@id/myCenterFragment" />
+    </fragment>
 
 </navigation>

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.first.ahikarov.databinding.SosAndSupportLayoutBinding
@@ -19,7 +21,7 @@ class SosAndSupportFragment : Fragment() {
     private var currentStep = 0
     private var hasNudgedUser = false
 
-    // רשימה שתחזיק את 5 השדות שלנו
+    // רשימה שתחזיק את 5 השדות
     private lateinit var inputsList: List<EditText>
 
     override fun onCreateView(
@@ -59,7 +61,7 @@ class SosAndSupportFragment : Fragment() {
         var requiredCount = 0
 
         for (input in inputsList) {
-            if (input.visibility == View.VISIBLE) {
+            if (input.isVisible) {
                 requiredCount++
                 if (input.text.toString().trim().isNotEmpty()) {
                     filledCount++
@@ -98,7 +100,6 @@ class SosAndSupportFragment : Fragment() {
             0 -> { // נשימה
                 binding.tvInstructions.text = getString(R.string.step_0_instruction)
                 binding.btnNext.text = getString(R.string.btn_ready)
-                // מחזירים את הליסנר המקורי למקרה שחזרנו או התחלנו מחדש
                 binding.btnNext.setOnClickListener { checkAndContinue() }
             }
             1 -> { // ראייה
@@ -160,7 +161,7 @@ class SosAndSupportFragment : Fragment() {
     private fun dialHelpNumber() {
         val phoneNumber = "1201" // ער"ן
         val intent = android.content.Intent(android.content.Intent.ACTION_DIAL)
-        intent.data = android.net.Uri.parse("tel:$phoneNumber")
+        intent.data = "tel:$phoneNumber".toUri()
         startActivity(intent)
     }
 
