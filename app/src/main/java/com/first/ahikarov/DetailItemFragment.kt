@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.first.ahikarov.databinding.DetailItemLayoutBinding
 
@@ -18,14 +19,9 @@ class DetailItemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyCenterViewModel by activityViewModels()
-
-    // משתנה לנגן המוזיקה
     private var mediaPlayer: MediaPlayer? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DetailItemLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,45 +30,48 @@ class DetailItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.chosenItem.observe(viewLifecycleOwner) { item ->
+            // בדיקת בטיחות: אם אין פריט, יוצאים (מונע קריסה)
             if (item == null) return@observe
 
+            // --- החלק החדש של שלב 3: הפעלת כפתור העריכה ✏️ ---
+            binding.btnEditItem.visibility = View.VISIBLE
+            binding.btnEditItem.setOnClickListener {
+                // הפריט כבר נמצא ב-ViewModel, אז פשוט עוברים למסך העריכה
+                findNavController().navigate(R.id.action_detailItemFragment_to_myCenterFragment)
+            }
+            // ---------------------------------------------------
 
-
-            if (item.title.isEmpty()) {
+            // 1. כותרת
+            if (item.title.isNullOrEmpty()) {
                 binding.detailTitle.visibility = View.GONE
             } else {
                 binding.detailTitle.text = item.title
                 binding.detailTitle.visibility = View.VISIBLE
             }
 
-            // 2. לוגיקה לפי סוג
+            // 2. תצוגה לפי סוג
             when (item.type) {
-                0 -> { // TYPE_IMAGE (תמונה)
+                0 -> { // תמונה
                     binding.detailImage.visibility = View.VISIBLE
                     binding.btnPlayAudio.visibility = View.GONE
                     binding.detailDescription.text = item.text ?: ""
 
-                    if (item.photo != null) {
-                        try {
-                            Glide.with(this).load(Uri.parse(item.photo)).into(binding.detailImage)
-                        } catch (_: Exception) { // תיקון אזהרה: שימוש בקו תחתון (_)
-                            binding.detailImage.setImageResource(R.mipmap.ic_launcher)
-                        }
+                    item.photo?.let { photoUri ->
+                        Glide.with(this)
+                            .load(Uri.parse(photoUri))
+                            .error(R.mipmap.ic_launcher)
+                            .into(binding.detailImage)
+                    } ?: run {
+                        binding.detailImage.setImageResource(R.mipmap.ic_launcher)
                     }
                 }
-
-                1 -> { // TYPE_SONG (שיר)
+                1 -> { // שיר
                     binding.detailImage.visibility = View.GONE
                     binding.btnPlayAudio.visibility = View.VISIBLE
-
                     binding.detailDescription.text = "Click Play to listen 🎵"
-
-                    binding.btnPlayAudio.setOnClickListener {
-                        playAudio(item.text)
-                    }
+                    binding.btnPlayAudio.setOnClickListener { playAudio(item.text) }
                 }
-
-                2 -> { // TYPE_QUOTE (ציטוט)
+                2 -> { // ציטוט
                     binding.detailImage.visibility = View.GONE
                     binding.btnPlayAudio.visibility = View.GONE
                     binding.detailDescription.text = item.text
@@ -86,7 +85,6 @@ class DetailItemFragment : Fragment() {
             Toast.makeText(context, "No audio file found", Toast.LENGTH_SHORT).show()
             return
         }
-
         try {
             if (mediaPlayer != null) {
                 mediaPlayer?.release()
@@ -97,9 +95,7 @@ class DetailItemFragment : Fragment() {
                 mediaPlayer?.setDataSource(requireContext(), Uri.parse(audioPath))
                 mediaPlayer?.prepare()
                 mediaPlayer?.start()
-
                 binding.btnPlayAudio.text = "Stop Music ⏹️"
-
                 mediaPlayer?.setOnCompletionListener {
                     binding.btnPlayAudio.text = "Play Music ▶️"
                     mediaPlayer?.release()
@@ -108,14 +104,12 @@ class DetailItemFragment : Fragment() {
             }
         } catch (e: Exception) {
             Toast.makeText(context, "Error playing file", Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mediaPlayer?.release()
-        mediaPlayer = null
         _binding = null
     }
 }

@@ -78,7 +78,11 @@ class MyCenterFragmentMain : Fragment() {
         }
 
         // כפתור הוספה
+        // הקוד החדש והמתוקן:
         binding.add.setOnClickListener {
+
+            viewModel.setItem(null) //  מנקה את הזיכרון לפני יצירת פריט חדש
+
             findNavController().navigate(R.id.action_center_main_to_add)
         }
     }
