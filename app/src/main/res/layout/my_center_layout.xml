@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="#F7F9F9"
     tools:context=".MyCenterFragment">
 
     <LinearLayout
@@ -18,28 +19,42 @@
         android:padding="24dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/center_title"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginBottom="24dp"/>
+            android:textSize="28sp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#37474F"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="start" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_select_type"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#455A64"
             android:layout_marginBottom="8dp"/>
 
-        <Spinner
-            android:id="@+id/type_spinner"
+        <!-- Item 1: Styled Spinner Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:entries="@array/anchor_types_array"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="56dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#E0F2F1">
+
+            <Spinner
+                android:id="@+id/type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:entries="@array/anchor_types_array" />
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/container_title_input"
@@ -64,12 +79,16 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/image_btn"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
                 android:text="@string/btn_pick_image"
-                app:cornerRadius="8dp"
+                android:textAllCaps="false"
+                android:textColor="#263238"
+                app:backgroundTint="#E0F2F1"
+                app:cornerRadius="24dp"
                 android:layout_marginBottom="12dp"/>
 
             <ImageView
@@ -106,13 +125,16 @@
             android:gravity="center"
             android:layout_marginBottom="16dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_pick_audio"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
                 android:text="@string/pick_Audio_File"
-                android:backgroundTint="#4CAF50"
-                app:cornerRadius="8dp"
+                android:textAllCaps="false"
+                android:textColor="#263238"
+                app:backgroundTint="#E8EAF6"
+                app:cornerRadius="24dp"
                 android:layout_marginBottom="8dp"/>
 
             <TextView
@@ -141,15 +163,19 @@
                 android:inputType="textMultiLine"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/finish_btn"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="64dp"
             android:text="@string/btn_save"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:cornerRadius="12dp"
-            android:layout_marginTop="16dp"/>
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:textColor="#263238"
+            app:backgroundTint="#E0F2F1"
+            app:cornerRadius="24dp"
+            android:layout_marginTop="32dp"/>
 
     </LinearLayout>
 </ScrollView>

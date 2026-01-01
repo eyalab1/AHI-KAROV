@@ -5,11 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F2F6FC"
+    android:background="#F7F9F9"
     tools:context =".SosAndSupportFragment">
 
-
-    <!--  safety plan-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,19 +16,23 @@
         android:padding="24dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/grounding_title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="32dp"
-            android:textColor="#546E7A"/>
+            android:textSize="28sp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#37474F"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#B2DFDB"
             app:cardBackgroundColor="#FFFFFF">
 
             <LinearLayout
@@ -46,10 +48,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/step_0_instruction"
                     android:textSize="20sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:layout_marginBottom="16dp"/>
+                    android:textColor="#37474F"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="24dp"/>
 
                 <LinearLayout
                     android:id="@+id/inputsContainer"
@@ -61,55 +64,65 @@
                     <EditText
                         android:id="@+id/etInput1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:visibility="gone"
                         android:layout_marginBottom="12dp"
-                        android:padding="12dp"
-                        android:background="@android:drawable/edit_text"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
                         android:importantForAutofill="no"
                         android:inputType="text" />
 
                     <EditText
                         android:id="@+id/etInput2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:visibility="gone"
                         android:layout_marginBottom="12dp"
-                        android:padding="12dp"
-                        android:background="@android:drawable/edit_text"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
                         android:importantForAutofill="no"
                         android:inputType="text" />
 
                     <EditText
                         android:id="@+id/etInput3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:visibility="gone"
                         android:layout_marginBottom="12dp"
-                        android:padding="12dp"
-                        android:background="@android:drawable/edit_text"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
                         android:importantForAutofill="no"
                         android:inputType="text" />
 
                     <EditText
                         android:id="@+id/etInput4"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:visibility="gone"
                         android:layout_marginBottom="12dp"
-                        android:padding="12dp"
-                        android:background="@android:drawable/edit_text"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
                         android:importantForAutofill="no"
                         android:inputType="text" />
 
                     <EditText
                         android:id="@+id/etInput5"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:visibility="gone"
                         android:layout_marginBottom="12dp"
-                        android:padding="12dp"
-                        android:background="@android:drawable/edit_text"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
                         android:importantForAutofill="no"
                         android:inputType="text" />
 
@@ -118,20 +131,30 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnNext"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="64dp"
                     android:text="@string/btn_ready"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="#263238"
+                    app:cornerRadius="16dp"
+                    app:backgroundTint="#E0F2F1"
+                    app:rippleColor="#B2DFDB"
+                    app:elevation="0dp" />
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="48dp"
+            app:trackThickness="10dp"
+            app:trackCornerRadius="5dp"
+            app:indicatorColor="#80CBC4"
+            app:trackColor="#E0F2F1"
             android:max="6"
             android:progress="0"/>
 
