@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:layout_marginTop="16dp"
-            android:hint="Welcome Back XXX"/>
+            android:hint="@string/title_Welcome_Back"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 <!--    my center-->
