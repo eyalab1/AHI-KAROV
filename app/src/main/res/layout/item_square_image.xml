@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/img_desc_placeholder" />
+            android:contentDescription="@string/user_photo" />
 
         <TextView
             android:id="@+id/itemTitle"
