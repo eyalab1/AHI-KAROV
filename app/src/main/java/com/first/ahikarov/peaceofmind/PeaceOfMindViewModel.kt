@@ -19,7 +19,7 @@ class PeaceOfMindViewModel : ViewModel() {
     val isActive: LiveData<Boolean> = _isActive
 
     private val _cycleCount = MutableLiveData<Int>(0)
-    val formattedCycles: LiveData<String> = _cycleCount.map { count -> "מחזור $count" }
+    val formattedCycles: LiveData<String> = _cycleCount.map { count -> "cycle $count" }
 
     private val _secondsElapsed = MutableLiveData<Int>(0)
     val formattedTime: LiveData<String> = _secondsElapsed.map { totalSeconds ->
