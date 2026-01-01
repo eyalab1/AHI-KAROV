@@ -23,6 +23,8 @@
     <string name="btn_pick_image">Pick Image</string>
     <string name="btn_save">Save Anchor</string>
     <string name="img_desc_placeholder">Selected Image</string>
+    <string name="user_photo">User photo</string>
+    <string name="quote_will_appear_here">"quote will appear here"</string>
 
     <string-array name="anchor_types_array">
         <item>Image</item>
@@ -39,8 +41,12 @@
     <string name="btn_save_new_item">Save New Item</string>
     <string name="msg_audio_updated">Audio Updated! ✅</string>
     <string name="msg_audio_loaded">Current Audio File (Loaded)</string>
-
-
+    <string name="title">Title</string>
+    <string name="description_Optional">"Description (Optional)"</string>
+    <string name="clear_text">"clear_text"</string>
+    <string name="pick_Audio_File">"Pick Audio File 🎵"</string>
+    <string name="no_audio_selected">"No audio selected"</string>
+    <string name="title_Welcome_Back">"Welcome Back XXX"</string>
 
 
 
