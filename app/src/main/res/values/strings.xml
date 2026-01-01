@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">AHI KAROV</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="inhale">שאיפה</string>
-    <string name="exhale">נשיפה</string>
-    <string name="hold">החזק</string>
-    <string name="ready">מוכן?</string>
-    <string name="start_practice">התחל תרגול</string>
-    <string name="stop_practice">עצור תרגול</string>
+    <string name="inhale">Inhale</string>
+    <string name="exhale">Exhale</string>
+    <string name="hold">Hold</string>
+    <string name="ready">Ready?</string>
+    <string name="start_practice">Start Practice</string>
+    <string name="stop_practice">Stop Practice</string>
 </resources>
