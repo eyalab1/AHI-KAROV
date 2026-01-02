@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_main_to_sos"
             app:destination="@id/sosAndSupportFragment" />
+        <action
+            android:id="@+id/action_main_to_emotionJournal"
+            app:destination="@id/emotionJournalFragment" />
     </fragment>
 
     <fragment
@@ -49,5 +52,22 @@
         android:id="@+id/detailItemFragment"
         android:name="com.first.ahikarov.DetailItemFragment"
         android:label="DetailItemFragment" />
+
+    <fragment
+        android:id="@+id/emotionJournalFragment"
+        android:name="com.first.ahikarov.EmotionJournalFragment"
+        android:label="Emotion Journal"
+        tools:layout="@layout/emotion_journal_layout">
+
+        <action
+            android:id="@+id/action_journal_to_add"
+            app:destination="@id/addEmotionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEmotionFragment"
+        android:name="com.first.ahikarov.AddEmotionFragment"
+        android:label="Add Emotion"
+        tools:layout="@layout/add_journal_layout" />
 
 </navigation>

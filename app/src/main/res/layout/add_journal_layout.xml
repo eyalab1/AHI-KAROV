@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- כותרת ראשית -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Moment"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- TextView לתאריך היום -->
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- תיבת טקסט עם ScrollView פנימי -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="כתוב כאן מה שעובר עליך">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </ScrollView>
+
+    <!-- כפתור שמירה בתחתית -->
+    <Button
+        android:id="@+id/btnSaveEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="שמור"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
