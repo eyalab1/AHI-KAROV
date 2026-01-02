@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.first.ahikarov.databinding.ItemSquareImageBinding
 
-// הנה השינוי: הוספנו את onItemClick (לחיצה קצרה) לבנאי של המחלקה
+
 class MediaAdapter(
-    private val items: List<Item>,
-    private val onItemClick: (Item) -> Unit,      // <-- חדש!
-    private val onItemLongClick: (Item) -> Unit   // <-- הישן
+    private var items: List<Item>,
+    private val onItemClick: (Item) -> Unit,
+    private val onItemLongClick: (Item) -> Unit
 ) : RecyclerView.Adapter<MediaAdapter.MediaViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaViewHolder {
@@ -64,5 +64,9 @@ class MediaAdapter(
                 true
             }
         }
+    }
+    fun updateList(newItems: List<Item>) {
+        this.items = newItems
+        notifyDataSetChanged()
     }
 }

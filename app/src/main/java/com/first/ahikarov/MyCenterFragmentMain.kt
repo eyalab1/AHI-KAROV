@@ -30,59 +30,57 @@ class MyCenterFragmentMain : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // הגדרת כיוון הגלילה
+        // 1. הגדרת LayoutManager (כמו קודם)
         binding.recyclerPictures.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerSongs.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerQuotes.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+        // 2. יצירת אדפטרים ריקים וחיבור מיידי! (זה מה שפותר את האזהרה)
 
-        // מאפשר את האזנה לשינויים
+        // אדפטר לתמונות
+        val picturesAdapter = MediaAdapter(emptyList(),
+            onItemClick = { item ->
+                viewModel.setItem(item)
+                findNavController().navigate(R.id.action_myCenterFragmentMain_to_detailItemFragment)
+            },
+            onItemLongClick = { item -> showDeleteDialog(item) }
+        )
+        binding.recyclerPictures.adapter = picturesAdapter
+
+        // אדפטר לשירים
+        val songsAdapter = MediaAdapter(emptyList(),
+            onItemClick = { item ->
+                viewModel.setItem(item)
+                findNavController().navigate(R.id.action_myCenterFragmentMain_to_detailItemFragment)
+            },
+            onItemLongClick = { item -> showDeleteDialog(item) }
+        )
+        binding.recyclerSongs.adapter = songsAdapter
+
+        // אדפטר לציטוטים
+        val quotesAdapter = QuoteAdapter(emptyList()) { itemToDelete ->
+            showDeleteDialog(itemToDelete)
+        }
+        binding.recyclerQuotes.adapter = quotesAdapter
+
+
+        // 3. האזנה לשינויים - עכשיו רק מעדכנים את האדפטרים הקיימים
         viewModel.itemsLiveData.observe(viewLifecycleOwner) { allItems ->
 
-            // סינון הרשימה הגדולה ל-3 רשימות קטנות
+            // סינון הרשימות
             val imagesList = allItems.filter { it.type == 0 }
             val songsList = allItems.filter { it.type == 1 }
             val quotesList = allItems.filter { it.type == 2 }
 
-            // 1. רשימת התמונות
-            binding.recyclerPictures.adapter = MediaAdapter(
-                items = imagesList,
-                onItemClick = { item ->
-                    // שלב א: מעדכנים את ה-ViewModel באיזה פריט נבחר
-                    viewModel.setItem(item)
-
-                    // שלב ב: מנווטים למסך הפרטים! 🚀
-                    findNavController().navigate(R.id.action_myCenterFragmentMain_to_detailItemFragment)
-                },
-                onItemLongClick = { item ->
-                    showDeleteDialog(item)
-                }
-            )
-
-            // 2. רשימת השירים (עשינו שגם שירים יפתחו את מסך הפרטים)
-            binding.recyclerSongs.adapter = MediaAdapter(
-                items = songsList,
-                onItemClick = { item ->
-                    viewModel.setItem(item)
-                    findNavController().navigate(R.id.action_myCenterFragmentMain_to_detailItemFragment)
-                },
-                onItemLongClick = { item ->
-                    showDeleteDialog(item)
-                }
-            )
-
-            // 3. רשימת הציטוטים (נשאר ללא שינוי כרגע)
-            binding.recyclerQuotes.adapter = QuoteAdapter(quotesList) { itemToDelete ->
-                showDeleteDialog(itemToDelete)
-            }
+            // עדכון הנתונים בתוך האדפטרים
+            picturesAdapter.updateList(imagesList)
+            songsAdapter.updateList(songsList)
+            quotesAdapter.updateList(quotesList)
         }
 
         // כפתור הוספה
-        // הקוד החדש והמתוקן:
         binding.add.setOnClickListener {
-
-            viewModel.setItem(null) //  מנקה את הזיכרון לפני יצירת פריט חדש
-
+            viewModel.setItem(null)
             findNavController().navigate(R.id.action_center_main_to_add)
         }
     }
