@@ -35,6 +35,10 @@ class MainFragment : Fragment() {
         binding.btnSos.setOnClickListener {
             findNavController().navigate(R.id.action_main_to_sos)
         }
+        binding.btnEmotionJournal.setOnClickListener {
+            findNavController().navigate(R.id.action_main_to_emotionJournal)
+        }
+
     }
 
     override fun onDestroyView() {
