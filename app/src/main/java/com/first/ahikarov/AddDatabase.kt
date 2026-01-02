@@ -6,11 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // פה אנחנו רושמים את הטבלה שלך (Item) כדי שהבוס יכיר אותה
-@Database(entities = [Item::class], version = 1, exportSchema = false)
-abstract class AppDatabase : RoomDatabase() {
+@Database(
+    entities = [Item::class, EmotionEntry::class],
+    version = 2,
+    exportSchema = false
+)abstract class AppDatabase : RoomDatabase() {
 
     // כאן אנחנו חושפים את המנהל שיצרנו קודם (DAO)
     abstract fun itemDao(): ItemDao
+    abstract fun emotionDao(): EmotionDao
+
 
     // הקוד הזה דואג שיהיה רק מסד נתונים אחד בכל האפליקציה (Singleton)
     companion object {
