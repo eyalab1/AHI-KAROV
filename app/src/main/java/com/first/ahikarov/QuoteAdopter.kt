@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.first.ahikarov.databinding.ItemQuoteCardBinding
 
-class QuoteAdapter(private val items: List<Item>, private val onItemLongClick: (Item) -> Unit)
+class QuoteAdapter(private var items: List<Item>, private val onItemLongClick: (Item) -> Unit)
     : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
 
 
@@ -31,5 +31,9 @@ class QuoteAdapter(private val items: List<Item>, private val onItemLongClick: (
                 true
             }
         }
+    }
+    fun updateList(newItems: List<Item>) {
+        this.items = newItems
+        notifyDataSetChanged()
     }
 }
