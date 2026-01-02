@@ -23,7 +23,7 @@ class EmotionAdapter(
         holder.bind(entry)
     }
 
-    inner class EmotionViewHolder(private val binding: ItemEmotionJournalBinding) :
+    class EmotionViewHolder(private val binding: ItemEmotionJournalBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(entry: EmotionEntry) {
@@ -46,7 +46,7 @@ class EmotionAdapter(
             ) = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
+                val position = viewHolder.bindingAdapterPosition
                 val entry = getItem(position)
                 Toast.makeText(recyclerView.context, "delete", Toast.LENGTH_SHORT).show()
                 onDelete(entry)
