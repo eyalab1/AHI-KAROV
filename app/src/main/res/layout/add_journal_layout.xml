@@ -6,12 +6,11 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- כותרת ראשית -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Moment"
+        android:text="@string/title_add_moment"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_gravity="center"
@@ -27,7 +26,6 @@
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"/>
 
-    <!-- תיבת טקסט עם ScrollView פנימי -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -38,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="כתוב כאן מה שעובר עליך">
+            android:hint="@string/hint_add_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etContent"
@@ -50,11 +48,10 @@
         </com.google.android.material.textfield.TextInputLayout>
     </ScrollView>
 
-    <!-- כפתור שמירה בתחתית -->
     <Button
         android:id="@+id/btnSaveEntry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="שמור"
+        android:text="@string/btn_save2"
         android:layout_marginTop="16dp"/>
 </LinearLayout>

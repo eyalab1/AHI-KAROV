@@ -48,7 +48,7 @@ class EmotionAdapter(
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.bindingAdapterPosition
                 val entry = getItem(position)
-                Toast.makeText(recyclerView.context, "delete", Toast.LENGTH_SHORT).show()
+                Toast.makeText(recyclerView.context, recyclerView.context.getString(R.string.toast_delete), Toast.LENGTH_SHORT).show()
                 onDelete(entry)
             }
         }

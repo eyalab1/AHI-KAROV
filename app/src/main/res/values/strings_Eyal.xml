@@ -86,4 +86,17 @@
     <string name="btn_call_help">Yes, Call for Help</string>
     <string name="btn_exit_app">No, I feel better</string>
 
+    <string name="date_placeholder">01/01/2025</string>
+    <string name="content_placeholder">Sample text</string>
+    <string name="desc_add_new2">Add new entry</string>
+    <string name="entry_exists_today">An entry for today already exists.</string>
+    <string name="toast_delete">Entry deleted</string>
+    <string name="title_add_moment">My Moment</string>
+    <string name="hint_add_content">Write here whats on your mind</string>
+    <string name="btn_save2">Save</string>
+
+
+
+
+
 </resources>

@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-// פה אנחנו רושמים את הטבלה שלך (Item) כדי שהבוס יכיר אותה
 @Database(
     entities = [Item::class, EmotionEntry::class],
     version = 2,
