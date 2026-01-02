@@ -12,12 +12,11 @@ import androidx.room.RoomDatabase
     exportSchema = false
 )abstract class AppDatabase : RoomDatabase() {
 
-    // כאן אנחנו חושפים את המנהל שיצרנו קודם (DAO)
     abstract fun itemDao(): ItemDao
     abstract fun emotionDao(): EmotionDao
 
 
-    // הקוד הזה דואג שיהיה רק מסד נתונים אחד בכל האפליקציה (Singleton)
+    // מסד נתונים אחד בכל האפליקציה (Singleton)
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -27,10 +26,10 @@ import androidx.room.RoomDatabase
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "app_database" // זה השם של הקובץ שיישמר בתוך הטלפון
+                    "app_database"
                 )
-                    .allowMainThreadQueries() // מאפשר עבודה פשוטה בלי להיתקע (מותר למטלה)
-                    .fallbackToDestructiveMigration() // אם משנים משהו בטבלה, זה מוחק ויוצר מחדש (מונע קריסות בפיתוח)
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance
