@@ -43,10 +43,9 @@ class AddEmotionFragment : Fragment() {
                 content = content
             )
 
-            // בדיקה אסינכרונית אם כבר קיימת רשומה
             viewModel.hasEntryForDate(entry.date) { exists ->
                 if (exists) {
-                    Toast.makeText(requireContext(), "כבר קיימת רשומה להיום", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.entry_exists_today), Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 } else {
                     viewModel.addEntry(entry)

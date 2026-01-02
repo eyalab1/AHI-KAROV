@@ -50,4 +50,16 @@
     <string name="dialog_help_message">סיימת את התרגיל.\nהאם אתה עדיין מרגיש שאתה זקוק לעזרה מיידית?</string>
     <string name="btn_call_help">כן, חייג לעזרה</string>
     <string name="btn_exit_app">לא, אני מרגיש טוב יותר</string>
+
+    <string name="date_placeholder">01/01/2025</string>
+    <string name="content_placeholder">טקסט לדוגמה</string>
+    <string name="desc_add_new2">הוסף שיחה חדשה</string>
+    <string name="entry_exists_today">כבר קיימת שיחה על היום.</string>
+    <string name="toast_delete">השיחה נמחקה</string>
+    <string name="title_add_moment">הרגע שלי</string>
+    <string name="hint_add_content">כתוב כאן מה שעובר עליך</string>
+    <string name="btn_save2">שמור</string>
+
+
+
 </resources>
