@@ -10,32 +10,44 @@ import kotlinx.coroutines.launch
 
 class MyCenterViewModel(application: Application) : AndroidViewModel(application) {
 
+    // חיבור ל-Repository (שכבת הנתונים)
     private val repository: MyCenterRepository = MyCenterRepository(application)
+
+    // רשימת כל הפריטים (מתעדכנת אוטומטית מה-LiveData של ה-Room)
     val itemsLiveData: LiveData<List<Item>> = repository.allItems
 
-    // --- התיקון: הוספת סימני שאלה (?) כדי לאפשר null ---
+    // --- ניהול פריט נבחר (למעבר בין מסכים) ---
+    // 1. משתנה פרטי שניתן לשינוי (Mutable) - מחזיק את הפריט או null
+    private val _selectedItem = MutableLiveData<Item?>()
 
-    // 1. משתנה פרטי (יכול להיות null)
-    private val _chosenItem = MutableLiveData<Item?>()
+    // 2. משתנה ציבורי לקריאה בלבד (LiveData) - המסכים מאזינים לזה
+    val selectedItem: LiveData<Item?> get() = _selectedItem
 
-    // 2. משתנה ציבורי (יכול להיות null)
-    val chosenItem: LiveData<Item?> get() = _chosenItem
-
-    // 3. הפונקציה מקבלת Item? (עם סימן שאלה) כדי שנוכל לשלוח null
+    // 3. הפונקציה שמעדכנת את הפריט הנבחר
     fun setItem(item: Item?) {
-        _chosenItem.value = item
+        _selectedItem.value = item
     }
-    // ----------------------------------------------------
 
+    // --- פעולות דאטה-בייס (Coroutines) ---
+
+    // הוספת פריט
     fun addItem(item: Item) {
-        viewModelScope.launch(Dispatchers.IO) { repository.addItem(item) }
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addItem(item)
+        }
     }
 
-    fun removeItem(item: Item) {
-        viewModelScope.launch(Dispatchers.IO) { repository.deleteItem(item) }
+    // מחיקת פריט (שינינו ל-deleteItem כדי שיהיה תואם ל-Repo)
+    fun deleteItem(item: Item) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteItem(item)
+        }
     }
 
+    // עדכון פריט
     fun updateItem(item: Item) {
-        viewModelScope.launch(Dispatchers.IO) { repository.updateItem(item) }
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateItem(item)
+        }
     }
 }

@@ -15,14 +15,14 @@ interface ItemDao {
     fun getAllItems(): LiveData<List<Item>>
 
     @Query("SELECT * FROM my_center_items WHERE item_id = :id")
-    fun getItem(id: Int): Item
+    suspend fun getItem(id: Int): Item
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addItem(item: Item)
+    suspend fun addItem(item: Item)
 
     @Update
-    fun updateItem(item: Item)
+    suspend fun updateItem(item: Item)
 
     @Delete
-    fun deleteItem(vararg items: Item)
+    suspend fun deleteItem(vararg items: Item)
 }
