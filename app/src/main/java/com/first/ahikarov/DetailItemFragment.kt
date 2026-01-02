@@ -29,20 +29,18 @@ class DetailItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.chosenItem.observe(viewLifecycleOwner) { item ->
-            // בדיקת בטיחות: אם אין פריט, יוצאים (מונע קריסה)
+        viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
+            // זו בדיקה שאם אין פריט, יוצאים
             if (item == null) return@observe
 
-            // --- החלק החדש של שלב 3: הפעלת כפתור העריכה ✏️ ---
+            // הפעלת כפתור העריכה ✏️
             binding.btnEditItem.visibility = View.VISIBLE
             binding.btnEditItem.setOnClickListener {
-                // הפריט כבר נמצא ב-ViewModel, אז פשוט עוברים למסך העריכה
                 findNavController().navigate(R.id.action_detailItemFragment_to_myCenterFragment)
             }
-            // ---------------------------------------------------
 
             // 1. כותרת
-            if (item.title.isNullOrEmpty()) {
+            if (item.title.isEmpty()) {
                 binding.detailTitle.visibility = View.GONE
             } else {
                 binding.detailTitle.text = item.title
@@ -57,10 +55,14 @@ class DetailItemFragment : Fragment() {
                     binding.detailDescription.text = item.text ?: ""
 
                     item.photo?.let { photoUri ->
-                        Glide.with(this)
-                            .load(Uri.parse(photoUri))
-                            .error(R.mipmap.ic_launcher)
-                            .into(binding.detailImage)
+                        try {
+                            Glide.with(this)
+                                .load(Uri.parse(photoUri))
+                                .error(R.mipmap.ic_launcher)
+                                .into(binding.detailImage)
+                        } catch (_: Exception) {
+                            binding.detailImage.setImageResource(R.mipmap.ic_launcher)
+                        }
                     } ?: run {
                         binding.detailImage.setImageResource(R.mipmap.ic_launcher)
                     }
@@ -102,7 +104,7 @@ class DetailItemFragment : Fragment() {
                     mediaPlayer = null
                 }
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Toast.makeText(context, "Error playing file", Toast.LENGTH_SHORT).show()
         }
     }

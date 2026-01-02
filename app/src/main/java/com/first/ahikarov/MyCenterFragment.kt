@@ -20,15 +20,16 @@ class MyCenterFragment : Fragment() {
 
     private var _binding: MyCenterLayoutBinding? = null
     private val binding get() = _binding!!
+
+    // חיבור ל-ViewModel המשותף
     private val viewModel: MyCenterViewModel by activityViewModels()
 
     private var selectedImageUri: Uri? = null
     private var selectedAudioUri: Uri? = null
 
-    // משתנה חדש: שומר את המזהה של הפריט (אם 0 = חדש, אם מספר אחר = עריכה)
     private var currentEditingId: Int = 0
 
-    // בחירת תמונה (עם הרשאות קבועות)
+    // בחירת תמונה
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
             try {
@@ -69,15 +70,14 @@ class MyCenterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // --- החלק החדש והחכם: האם הגענו לעריכה? 🧠 ---
-        val itemToEdit = viewModel.chosenItem.value
+        val itemToEdit = viewModel.selectedItem.value
 
         if (itemToEdit != null) {
-            // כן! יש פריט לעריכה
-            currentEditingId = itemToEdit.id // שומרים את ה-ID המקורי
+            // מצב עריכה: ממלאים את השדות במידע הקיים
+            currentEditingId = itemToEdit.id
             binding.finishBtn.text = getString(R.string.btn_update_item)
 
-            // 1. מילוי הסוג והכותרת
+            // 1. מילוי סוג וכותרת
             binding.typeSpinner.setSelection(itemToEdit.type)
             binding.etItemTitle.setText(itemToEdit.title)
 
@@ -101,17 +101,15 @@ class MyCenterFragment : Fragment() {
                 }
             }
         } else {
-            // לא, זו יצירה חדשה ➕
+            // מצב יצירה חדשה: איפוס של הכל
             currentEditingId = 0
             binding.finishBtn.text = getString(R.string.btn_save_new_item)
         }
 
-        // --- כאן השינוי לטיפול בסגירת המקלדת ---
+        // --- סגירת מקלדת בלחיצה מחוץ לשדה ---
         val closeKeyboardListener = View.OnClickListener {
             hideKeyboard()
         }
-
-        // מחברים את המאזין גם ל-Root (המסך הכללי) וגם ל-mainContainer (התוכן הפנימי)
         binding.root.setOnClickListener(closeKeyboardListener)
         binding.mainContainer.setOnClickListener(closeKeyboardListener)
         // ----------------------------------------
@@ -120,13 +118,12 @@ class MyCenterFragment : Fragment() {
         validateButtonState()
     }
 
-    // פונקציית עזר להסתרת המקלדת
     private fun hideKeyboard() {
         val inputMethodManager = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
         val currentFocusedView = view?.findFocus()
         if (currentFocusedView != null) {
             inputMethodManager.hideSoftInputFromWindow(currentFocusedView.windowToken, 0)
-            currentFocusedView.clearFocus() // אופציונלי: מוריד את הפוקוס מהשדה
+            currentFocusedView.clearFocus()
         }
     }
 
@@ -136,17 +133,15 @@ class MyCenterFragment : Fragment() {
         binding.imageBtn.setOnClickListener { pickImageLauncher.launch(arrayOf("image/*")) }
         binding.btnPickAudio.setOnClickListener { pickAudioLauncher.launch(arrayOf("audio/*")) }
 
-        binding.etItemTitle.addTextChangedListener(object : TextWatcher {
+        // האזנה לשינויים בטקסט כדי להדליק/לכבות את כפתור השמירה
+        val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) { validateButtonState() }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+        }
 
-        binding.etQuote.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) { validateButtonState() }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+        binding.etItemTitle.addTextChangedListener(textWatcher)
+        binding.etQuote.addTextChangedListener(textWatcher)
 
         binding.typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -163,36 +158,47 @@ class MyCenterFragment : Fragment() {
 
         var newItem: Item? = null
 
-        // לוגיקת יצירת האובייקט (משתמשים ב-currentEditingId!)
+        // בניית האובייקט לפי הסוג
         when (type) {
             TYPE_IMAGE -> {
-                if (selectedImageUri == null) return
-                newItem = Item(currentEditingId, title, binding.etItemDescription.text.toString(), selectedImageUri.toString(), type)
+                //  אם לא נבחרה תמונה וזו יצירה חדשה - אל תעשה כלום
+                if (selectedImageUri == null && currentEditingId == 0) return
+
+                if (selectedImageUri != null) {
+                    newItem = Item(currentEditingId, title, binding.etItemDescription.text.toString(), selectedImageUri.toString(), type)
+                } else if (viewModel.selectedItem.value?.photo != null) {
+                    newItem = Item(currentEditingId, title, binding.etItemDescription.text.toString(), viewModel.selectedItem.value!!.photo, type)
+                }
             }
             TYPE_SONG -> {
-                if (selectedAudioUri == null) return
-                newItem = Item(currentEditingId, title, selectedAudioUri.toString(), null, type)
+                if (selectedAudioUri == null && currentEditingId == 0) return
+
+                if (selectedAudioUri != null) {
+                    newItem = Item(currentEditingId, title, selectedAudioUri.toString(), null, type)
+                } else if (viewModel.selectedItem.value?.text != null) {
+                    newItem = Item(currentEditingId, title, viewModel.selectedItem.value!!.text!!, null, type)
+                }
             }
             TYPE_QUOTE -> {
                 val quote = binding.etQuote.text.toString()
-                if (quote.isEmpty()) return
-                newItem = Item(currentEditingId, "", quote, null, type)
+                if (quote.isNotEmpty()) {
+                    newItem = Item(currentEditingId, "", quote, null, type)
+                }
             }
         }
 
         if (newItem != null) {
             if (currentEditingId == 0) {
-                // מזהה 0 -> יצירה חדשה
+                // הוספה חדשה
                 viewModel.addItem(newItem)
                 Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                // מזהה קיים -> עדכון
+                // עדכון קיים
                 viewModel.updateItem(newItem)
-                viewModel.setItem(newItem) // מעדכן את ה-ViewModel כדי שמסך הפרטים יראה את השינוי
+                viewModel.setItem(newItem) // מעדכן את ה-ViewModel כדי שמסך הפרטים יתעדכן מיד
                 Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show()
             }
 
-            // הפקודה הזו מעולה, היא מחזירה אותך אחורה ל-DetailFragment
             findNavController().popBackStack()
         }
     }
@@ -200,12 +206,17 @@ class MyCenterFragment : Fragment() {
     private fun validateButtonState() {
         val type = binding.typeSpinner.selectedItemPosition
         val hasTitle = binding.etItemTitle.text.toString().isNotEmpty()
+
+        // בדיקת תקינות
+        val isEditMode = currentEditingId != 0
+
         val isValid = when(type) {
-            TYPE_IMAGE -> hasTitle && selectedImageUri != null
-            TYPE_SONG -> hasTitle && selectedAudioUri != null
+            TYPE_IMAGE -> hasTitle && (selectedImageUri != null || (isEditMode && viewModel.selectedItem.value?.photo != null))
+            TYPE_SONG -> hasTitle && (selectedAudioUri != null || (isEditMode && viewModel.selectedItem.value?.text != null))
             TYPE_QUOTE -> binding.etQuote.text.toString().isNotEmpty()
             else -> false
         }
+
         binding.finishBtn.isEnabled = isValid
         binding.finishBtn.alpha = if (isValid) 1f else 0.5f
     }

@@ -91,7 +91,7 @@ class MyCenterFragmentMain : Fragment() {
             .setTitle("Delete Item")
             .setMessage("Are you sure you want to delete '${item.title}'?")
             .setPositiveButton("Yes") { _, _ ->
-                viewModel.removeItem(item)
+                viewModel.deleteItem(item)
                 Toast.makeText(context, "Deleted successfully", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("No", null)
