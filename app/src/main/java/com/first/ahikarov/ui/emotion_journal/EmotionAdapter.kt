@@ -1,12 +1,14 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.emotion_journal
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
+import com.first.ahikarov.data.models.EmotionEntry
+import com.first.ahikarov.R
 import com.first.ahikarov.databinding.ItemEmotionJournalBinding
 
 class EmotionAdapter(
@@ -43,13 +45,15 @@ class EmotionAdapter(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
-            ) = false
+            ): Boolean = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.bindingAdapterPosition
-                val entry = getItem(position)
-                Toast.makeText(recyclerView.context, recyclerView.context.getString(R.string.toast_delete), Toast.LENGTH_SHORT).show()
-                onDelete(entry)
+                val position = viewHolder.adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val entry = getItem(position)
+                    Toast.makeText(recyclerView.context, recyclerView.context.getString(R.string.toast_delete), Toast.LENGTH_SHORT).show()
+                    onDelete(entry)
+                }
             }
         }
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView)

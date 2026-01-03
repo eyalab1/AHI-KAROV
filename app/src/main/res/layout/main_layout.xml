@@ -7,7 +7,7 @@
     android:background="#F7F9F9"
     android:orientation="vertical"
     android:padding="24dp"
-    tools:context="com.first.ahikarov.MainFragment">
+    tools:context="com.first.ahikarov.ui.home_screen.MainFragment">
 
     <!-- Welcome Section - Styled for calmness -->
     <TextView

@@ -1,10 +1,11 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.my_center
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.first.ahikarov.data.models.Item
 import com.first.ahikarov.databinding.ItemQuoteCardBinding
 
 
