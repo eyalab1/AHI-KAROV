@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">AHI KAROV</string>
+
+    <string name="main_welcome">Welcome Back </string>
+    <string name="main_center">My Center</string>
+    <string name="main_peace">Peace Of Mind</string>
+    <string name="main_journal">Emotion Journal</string>
+    <string name="main_sos">SOS And Support</string>
+
+    <string name="journal_label">XXXXX</string>
+
+    <string name="center_title">My Center</string>
+    <string name="label_select_type">Select Type</string>
+    <string name="type_image">Image</string>
+    <string name="type_song">Song</string>
+    <string name="type_quote">Inspiration Quote</string>
+    <string name="desc_add_new">Add New Item</string>
+    <string name="hint_quote">Write your quote here...</string>
+    <string name="hint_song_link">Paste song link here...</string>
+    <string name="btn_pick_image">Pick Image</string>
+    <string name="btn_save">Save Anchor</string>
+    <string name="img_desc_placeholder">Selected Image</string>
+    <string name="user_photo">User photo</string>
+    <string name="quote_will_appear_here">"quote will appear here"</string>
+
+    <string name="no_audio_selected">"No audio selected"</string>
+    <string name="description_Optional">"Description (Optional)"</string>
+    <string name="pick_Audio_File">"Pick Audio File 🎵"</string>
+
+    <string name="edit_Item">"Edit Item ✏️"</string>
+    <string name="play_Music">"Play Music ▶️"</string>
+    <string name="item_Title">"Item Title"</string>
+
+    <string-array name="anchor_types_array">
+        <item>Image</item>
+        <item>Song</item>
+        <item>Inspiration Quote</item>
+    </string-array>
+
+    <string name="title_my_pictures">My Pictures</string>
+    <string name="title_my_songs">My Songs</string>
+    <string name="title_my_quotes">My Inspiration Quotes</string>
+
+    <string name="btn_update_item">Update Item</string>
+    <string name="btn_save_new_item">Save New Item</string>
+    <string name="msg_audio_updated">Audio Updated! ✅</string>
+    <string name="msg_audio_loaded">Current Audio File (Loaded)</string>
+    <string name="title">Title</string>
+
+    <string name="clear_text">"clear_text"</string>
+    <string name="title_Welcome_Back">"Welcome Back"</string>
+
+    <string name="peace_placeholder_text">XXXXX</string>
+
+    <string name="grounding_title">Grounding Exercise</string>
+
+    <string name="step_0_instruction">Stop for a moment.\nTake a deep breath...</string>
+    <string name="step_1_instruction">Look around.\nList 5 things you can see:</string>
+    <string name="step_2_instruction">Focus on your body.\nList 4 things you can feel:</string>
+    <string name="step_3_instruction">Listen.\nWhat are 3 sounds you can hear?</string>
+    <string name="step_4_instruction">Try to smell.\nList 2 things you can smell:</string>
+    <string name="step_5_instruction">Finally.\nName 1 good thing in your life:</string>
+    <string name="step_6_instruction">Well done.\nYou have finished the exercise.</string>
+
+    <string name="hint_see">I see... (%1$d)</string>
+    <string name="hint_feel">I feel... (%1$d)</string>
+    <string name="hint_hear">I hear... (%1$d)</string>
+    <string name="hint_smell">Smell of... (%1$d)</string>
+    <string name="hint_good">The good thing... (%1$d)</string>
+
+    <string name="btn_ready">I\'m Ready</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_finish">Finish &amp; Exit</string>
+
+    <string name="nudge_msg">You found %1$d. Try to find %2$d more...</string>
+    <string name="msg_done">Exercise completed successfully</string>
+    <string name="sos_steps_title">Steps to Calm</string>
+    <string name="sos_step_breathe">Breathe</string>
+
+    <string name="dialog_help_title">Check-in</string>
+    <string name="dialog_help_message">You have finished the exercise.\nDo you still feel the need for immediate help?</string>
+    <string name="btn_call_help">Yes, Call for Help</string>
+    <string name="btn_exit_app">No, I feel better</string>
+
+    <string name="date_placeholder">01/01/2025</string>
+    <string name="content_placeholder">Sample text</string>
+    <string name="desc_add_new2">Add new entry</string>
+    <string name="entry_exists_today">An entry for today already exists.</string>
+    <string name="toast_delete">Entry deleted</string>
+    <string name="title_add_moment">My Moment</string>
+    <string name="hint_add_content">Write here whats on your mind</string>
+    <string name="btn_save2">Save</string>
+
+</resources>

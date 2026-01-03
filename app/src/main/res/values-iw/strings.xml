@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">אחי קרוב</string>
+
+    <string name="main_welcome">ברוך שובך </string>
+    <string name="main_center">המרכז שלי</string>
+    <string name="main_peace">שלוות נפש</string>
+    <string name="main_journal">יומן רגשות</string>
+    <string name="main_sos">SOS ותמיכה</string>
+
+    <string name="journal_label">XXXXX</string>
+
+    <string name="center_title">המרכז שלי</string>
+    <string name="label_select_type">בחר סוג</string>
+    <string name="type_image">תמונה</string>
+    <string name="type_song">שיר</string>
+    <string name="type_quote">ציטוט השראה</string>
+    <string name="desc_add_new">הוסף פריט חדש</string>
+    <string name="hint_quote">כתוב את הציטוט שלך כאן...</string>
+    <string name="hint_song_link">הדבק קישור לשיר כאן...</string>
+    <string name="btn_pick_image">בחר תמונה</string>
+    <string name="btn_save">שמור עוגן</string>
+    <string name="img_desc_placeholder">תמונה נבחרת</string>
+    <string name="user_photo">תמונת משתמש</string>
+    <string name="quote_will_appear_here">"הציטוט יופיע כאן"</string>
+
+    <string name="no_audio_selected">"לא נבחר שמע"</string>
+    <string name="description_Optional">"תיאור (אופציונלי)"</string>
+    <string name="pick_Audio_File">"בחר קובץ שמע 🎵"</string>
+
+    <string name="edit_Item">"ערוך פריט ✏️"</string>
+    <string name="play_Music">"נגן מוזיקה ▶️"</string>
+    <string name="item_Title">"כותרת הפריט"</string>
+
+    <string-array name="anchor_types_array">
+        <item>תמונה</item>
+        <item>שיר</item>
+        <item>ציטוט השראה</item>
+    </string-array>
+
+    <string name="title_my_pictures">התמונות שלי</string>
+    <string name="title_my_songs">השירים שלי</string>
+    <string name="title_my_quotes">ציטוטי ההשראה שלי</string>
+
+    <string name="btn_update_item">עדכן פריט</string>
+    <string name="btn_save_new_item">שמור פריט חדש</string>
+    <string name="msg_audio_updated">השמע עודכן! ✅</string>
+    <string name="msg_audio_loaded">קובץ שמע נוכחי (טעון)</string>
+    <string name="title">כותרת</string>
+
+    <string name="clear_text">"נקה טקסט"</string>
+    <string name="title_Welcome_Back">"ברוך שובך"</string>
+
+    <string name="peace_placeholder_text">XXXXX</string>
+
+    <string name="grounding_title">תרגיל קרקוע</string>
+
+    <string name="step_0_instruction">עצור לרגע.\nקח נשימה עמוקה...</string>
+    <string name="step_1_instruction">הבט סביב.\nמנה 5 דברים שניתן לראות:</string>
+    <string name="step_2_instruction">התמקד בגוף שלך.\nמנה 4 דברים שניתן להרגיש:</string>
+    <string name="step_3_instruction">הקשב.\nמהם 3 הקולות שניתן לשמוע?</string>
+    <string name="step_4_instruction">נסה להריח.\nמנה 2 דברים שניתן להריח:</string>
+    <string name="step_5_instruction">לסיום.\nציין דבר 1 טוב בחיים שלך:</string>
+    <string name="step_6_instruction">כל הכבוד.\nסיימת את התרגיל.</string>
+
+    <string name="hint_see">אני רואה... (%1$d)</string>
+    <string name="hint_feel">אני מרגיש... (%1$d)</string>
+    <string name="hint_hear">אני שומע... (%1$d)</string>
+    <string name="hint_smell">ריח של... (%1$d)</string>
+    <string name="hint_good">הדבר הטוב... (%1$d)</string>
+
+    <string name="btn_ready">אני מוכן</string>
+    <string name="btn_next">הבא</string>
+    <string name="btn_finish">סיים וצא</string>
+
+    <string name="nudge_msg">מצאת %1$d. נסה למצוא עוד %2$d...</string>
+    <string name="msg_done">התרגיל הושלם בהצלחה</string>
+    <string name="sos_steps_title">צעדים להירגעות</string>
+    <string name="sos_step_breathe">לנשום</string>
+
+    <string name="dialog_help_title">בדיקת מצב</string>
+    <string name="dialog_help_message">סיימת את התרגיל.\nהאם עדיין יש צורך בעזרה מיידית?</string>
+    <string name="btn_call_help">כן, הזעק עזרה</string>
+    <string name="btn_exit_app">לא, אני מרגיש טוב יותר</string>
+
+    <string name="date_placeholder">01/01/2025</string>
+    <string name="content_placeholder">טקסט לדוגמה</string>
+    <string name="desc_add_new2">הוסף רשומה חדשה</string>
+    <string name="entry_exists_today">כבר קיימת רשומה להיום.</string>
+    <string name="toast_delete">הרשומה נמחקה</string>
+    <string name="title_add_moment">הרגע שלי</string>
+    <string name="hint_add_content">כתוב כאן מה עובר עליך</string>
+    <string name="btn_save2">שמור</string>
+
+</resources>

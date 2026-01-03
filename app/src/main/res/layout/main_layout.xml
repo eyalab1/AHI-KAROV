@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F9F9"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context="com.first.ahikarov.MainFragment">
+
+    <!-- Welcome Section - Styled for calmness -->
+    <TextView
+        android:id="@+id/UserName_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/title_Welcome_Back"
+        android:textColor="#37474F"
+        android:textSize="28sp" />
+
+    <!-- My Center - Soft Teal -->
+
+    <!-- Peace of Mind - Soft Indigo -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_my_center"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/center_title"
+        android:textAllCaps="false"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:backgroundTint="#E0F2F1"
+        app:cornerRadius="28dp"
+        app:icon="@drawable/mindfulness_24px"
+        app:rippleColor="#B2DFDB"
+        app:iconTint="#000000"
+        app:iconGravity="end"
+        app:iconPadding="12dp"
+        app:iconSize="24dp" />
+
+
+
+
+    <!-- Emotion Journal - Soft Green -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_peace_of_mind"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Peace Of Mind"
+        android:textAllCaps="false"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:backgroundTint="#E8EAF6"
+        app:cornerRadius="28dp"
+        app:icon="@drawable/air_24px"
+        app:iconTint="#000000"
+        app:iconGravity="end"
+        app:iconPadding="12dp"
+        app:iconSize="24dp"
+        app:rippleColor="#C8E6C9" />
+
+    <!-- SOS Support - Muted Rose -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_emotion_journal"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/main_journal"
+        android:textAllCaps="false"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:backgroundTint="#E8F5E9"
+        app:cornerRadius="28dp"
+        app:icon="@drawable/cards_stack_24px"
+        app:iconGravity="end"
+        app:iconPadding="12dp"
+        app:iconSize="24dp"
+        app:iconTint="#000000"
+        app:rippleColor="#C8E6C9" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_sos"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="SOS Support"
+        android:textAllCaps="false"
+        android:textColor="#37474F"
+        android:textSize="17sp"
+        app:backgroundTint="#FFEBEE"
+        app:cornerRadius="24dp"
+        app:rippleColor="#FFCDD2"
+        app:icon="@drawable/baseline_sos_24"
+        app:iconTint="#000000"
+        app:iconGravity="end"
+        app:iconPadding="12dp"
+        app:iconSize="24dp" />
+
+</LinearLayout>

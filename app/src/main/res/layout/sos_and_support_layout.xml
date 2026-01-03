@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F7F9F9"
+    tools:context =".SosAndSupportFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/grounding_title"
+            android:textSize="28sp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#37474F"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#B2DFDB"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/tvInstructions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_0_instruction"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAlignment="center"
+                    android:textColor="#37474F"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="24dp"/>
+
+                <LinearLayout
+                    android:id="@+id/inputsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/etInput1"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput2"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput3"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput4"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etInput5"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="12dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#37474F"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="@string/btn_ready"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="#263238"
+                    app:cornerRadius="16dp"
+                    app:backgroundTint="#E0F2F1"
+                    app:rippleColor="#B2DFDB"
+                    app:elevation="0dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            app:trackThickness="10dp"
+            app:trackCornerRadius="5dp"
+            app:indicatorColor="#80CBC4"
+            app:trackColor="#E0F2F1"
+            android:max="6"
+            android:progress="0"/>
+
+    </LinearLayout>
+</ScrollView>
