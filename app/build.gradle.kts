@@ -1,16 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-parcelize")
-    id("kotlin-kapt")}
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.parcelize)
+}
 
 android {
     namespace = "com.first.ahikarov"
     compileSdk = 36
 
-    buildFeatures {
-        viewBinding = true
-    }
     defaultConfig {
         applicationId = "com.first.ahikarov"
         minSdk = 24
@@ -37,20 +35,29 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Glide
+    implementation(libs.glide)
+
     testImplementation(libs.junit)
-    implementation("com.github.bumptech.glide:glide:4.16.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

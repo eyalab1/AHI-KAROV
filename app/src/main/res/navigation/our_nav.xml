@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.first.ahikarov.MainFragment"
+        android:name="com.first.ahikarov.ui.home_screen.MainFragment"
         android:label="Main Menu"
         tools:layout="@layout/main_layout">
 
@@ -21,11 +21,14 @@
         <action
             android:id="@+id/action_main_to_emotionJournal"
             app:destination="@id/emotionJournalFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_peaceOfMindFragment"
+            app:destination="@id/peaceOfMindFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/myCenterFragmentMain"
-        android:name="com.first.ahikarov.MyCenterFragmentMain"
+        android:name="com.first.ahikarov.ui.my_center.MyCenterFragmentMain"
         android:label="My Center Main"
         tools:layout="@layout/my_center_main_layout">
 
@@ -39,18 +42,18 @@
 
     <fragment
         android:id="@+id/myCenterFragment"
-        android:name="com.first.ahikarov.MyCenterFragment"
+        android:name="com.first.ahikarov.ui.my_center.MyCenterFragment"
         android:label="Add New Item"
         tools:layout="@layout/my_center_layout" />
 
     <fragment
         android:id="@+id/sosAndSupportFragment"
-        android:name="com.first.ahikarov.SosAndSupportFragment"
+        android:name="com.first.ahikarov.ui.sos.SosAndSupportFragment"
         android:label="SOS and Support"
         tools:layout="@layout/sos_and_support_layout" />
     <fragment
         android:id="@+id/detailItemFragment"
-        android:name="com.first.ahikarov.DetailItemFragment"
+        android:name="com.first.ahikarov.ui.details.DetailItemFragment"
         android:label="DetailItemFragment" >
         <action
             android:id="@+id/action_detailItemFragment_to_myCenterFragment"
@@ -59,7 +62,7 @@
 
     <fragment
         android:id="@+id/emotionJournalFragment"
-        android:name="com.first.ahikarov.EmotionJournalFragment"
+        android:name="com.first.ahikarov.ui.emotion_journal.EmotionJournalFragment"
         android:label="Emotion Journal"
         tools:layout="@layout/emotion_journal_layout">
 
@@ -70,8 +73,13 @@
 
     <fragment
         android:id="@+id/addEmotionFragment"
-        android:name="com.first.ahikarov.AddEmotionFragment"
+        android:name="com.first.ahikarov.ui.emotion_journal.AddEmotionFragment"
         android:label="Add Emotion"
         tools:layout="@layout/add_journal_layout" />
+    <fragment
+        android:id="@+id/peaceOfMindFragment"
+        android:name="com.first.ahikarov.ui.peaceofmind.PeaceOfMindFragment"
+        android:label="peace_of_mind"
+        tools:layout="@layout/peace_of_mind" />
 
 </navigation>

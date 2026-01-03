@@ -1,4 +1,4 @@
-package com.first.ahikarov
+package com.first.ahikarov.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

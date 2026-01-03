@@ -1,5 +1,6 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.my_center
 
+import android.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.first.ahikarov.data.models.Item
 import com.first.ahikarov.databinding.ItemSquareImageBinding
 
 class MediaAdapter(
@@ -30,20 +32,20 @@ class MediaAdapter(
             binding.itemTitle.text = item.title
 
             if (item.type == 1) { // 1 = Song
-                binding.itemImage.setImageResource(android.R.drawable.ic_media_play)
+                binding.itemImage.setImageResource(R.drawable.ic_media_play)
             } else {
                 if (item.photo != null) {
                     try {
                         Glide.with(binding.root.context)
                             .load(item.photo.toUri())
                             .centerCrop()
-                            .placeholder(R.mipmap.ic_launcher)
+                            .placeholder(com.first.ahikarov.R.mipmap.ic_launcher)
                             .into(binding.itemImage)
                     } catch (_: Exception) {
-                        binding.itemImage.setImageResource(R.mipmap.ic_launcher)
+                        binding.itemImage.setImageResource(com.first.ahikarov.R.mipmap.ic_launcher)
                     }
                 } else {
-                    binding.itemImage.setImageResource(R.mipmap.ic_launcher)
+                    binding.itemImage.setImageResource(com.first.ahikarov.R.mipmap.ic_launcher)
                 }
             }
 

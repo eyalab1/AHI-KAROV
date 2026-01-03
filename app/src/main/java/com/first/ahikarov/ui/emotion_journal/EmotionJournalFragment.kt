@@ -1,4 +1,4 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.emotion_journal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import com.first.ahikarov.databinding.EmotionJournalLayoutBinding
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.first.ahikarov.ui.emotion_journal.EmotionAdapter
+import com.first.ahikarov.R
 
 
 class EmotionJournalFragment: Fragment() {

@@ -1,14 +1,16 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.emotion_journal
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.first.ahikarov.data.local_db.AppDatabase
+import com.first.ahikarov.data.models.EmotionEntry
 import kotlinx.coroutines.launch
 
 class EmotionJournalViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val dao = AppDatabase.getDatabase(application).emotionDao()
+    private val dao = AppDatabase.Companion.getDatabase(application).emotionDao()
     val entries: LiveData<List<EmotionEntry>> = dao.getAllEntries()
 
     fun addEntry(entry: EmotionEntry) {

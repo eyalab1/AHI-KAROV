@@ -91,4 +91,16 @@
     <string name="hint_add_content">כתוב כאן מה עובר עליך</string>
     <string name="btn_save2">שמור</string>
 
+
+    <string name="inhale">שאיפה</string>
+    <string name="exhale">נשיפה</string>
+    <string name="hold">עצירה</string>
+    <string name="ready">מוכן?</string>
+    <string name="start_practice">התחל תרגול</string>
+    <string name="stop_practice">הפסק תרגול</string>
+    <string name="protocol_4">פרוטוקול 4</string>
+    <string name="timer_default">00:00</string>
+    <string name="cycle_count">מחזור %1$d</string>
+    <string name="start">התחל</string>
+
 </resources>
