@@ -35,7 +35,6 @@ class MyCenterFragmentMain : Fragment() {
         binding.recyclerQuotes.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
 
-        // --- תיקון 1: מחקנו את emptyList() ---
         // אדפטר לתמונות
         val picturesAdapter = MediaAdapter(
             onItemClick = { item ->
@@ -46,7 +45,6 @@ class MyCenterFragmentMain : Fragment() {
         )
         binding.recyclerPictures.adapter = picturesAdapter
 
-        // --- תיקון 2: מחקנו את emptyList() ---
         // אדפטר לשירים
         val songsAdapter = MediaAdapter(
             onItemClick = { item ->
@@ -57,7 +55,6 @@ class MyCenterFragmentMain : Fragment() {
         )
         binding.recyclerSongs.adapter = songsAdapter
 
-        // --- תיקון 3: מחקנו את emptyList() ---
         // אדפטר לציטוטים
         val quotesAdapter = QuoteAdapter { itemToDelete ->
             showDeleteDialog(itemToDelete)
