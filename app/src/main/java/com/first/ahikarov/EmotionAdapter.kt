@@ -33,7 +33,7 @@ class EmotionAdapter(
     }
 
     class DiffCallback : DiffUtil.ItemCallback<EmotionEntry>() {
-        override fun areItemsTheSame(oldItem: EmotionEntry, newItem: EmotionEntry) = oldItem === newItem
+        override fun areItemsTheSame(oldItem: EmotionEntry, newItem: EmotionEntry) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: EmotionEntry, newItem: EmotionEntry) = oldItem == newItem
     }
 

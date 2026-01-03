@@ -1,17 +1,14 @@
 <resources>
     <string name="app_name">AHI KAROV</string>
 
-    <string name="main_welcome">Welcome Back XXX</string>
+    <string name="main_welcome">Welcome Back </string>
     <string name="main_center">My Center</string>
     <string name="main_peace">Peace Of Mind</string>
     <string name="main_journal">Emotion Journal</string>
     <string name="main_sos">SOS And Support</string>
 
-
     <string name="journal_label">XXXXX</string>
 
-
-<!--    my center layout-->
     <string name="center_title">My Center</string>
     <string name="label_select_type">Select Type</string>
     <string name="type_image">Image</string>
@@ -26,6 +23,14 @@
     <string name="user_photo">User photo</string>
     <string name="quote_will_appear_here">"quote will appear here"</string>
 
+    <string name="no_audio_selected">"No audio selected"</string>
+    <string name="description_Optional">"Description (Optional)"</string>
+    <string name="pick_Audio_File">"Pick Audio File 🎵"</string>
+
+    <string name="edit_Item">"Edit Item ✏️"</string>
+    <string name="play_Music">"Play Music ▶️"</string>
+    <string name="item_Title">"Item Title"</string>
+
     <string-array name="anchor_types_array">
         <item>Image</item>
         <item>Song</item>
@@ -36,26 +41,17 @@
     <string name="title_my_songs">My Songs</string>
     <string name="title_my_quotes">My Inspiration Quotes</string>
 
-    <!--    my center fragment-->
     <string name="btn_update_item">Update Item</string>
     <string name="btn_save_new_item">Save New Item</string>
     <string name="msg_audio_updated">Audio Updated! ✅</string>
     <string name="msg_audio_loaded">Current Audio File (Loaded)</string>
     <string name="title">Title</string>
-    <string name="description_Optional">"Description (Optional)"</string>
+
     <string name="clear_text">"clear_text"</string>
-    <string name="pick_Audio_File">"Pick Audio File 🎵"</string>
-    <string name="no_audio_selected">"No audio selected"</string>
-    <string name="title_Welcome_Back">"Welcome Back XXX"</string>
-
-
+    <string name="title_Welcome_Back">"Welcome Back"</string>
 
     <string name="peace_placeholder_text">XXXXX</string>
 
-
-
-
-<!--sos and support-->
     <string name="grounding_title">Grounding Exercise</string>
 
     <string name="step_0_instruction">Stop for a moment.\nTake a deep breath...</string>
@@ -94,9 +90,5 @@
     <string name="title_add_moment">My Moment</string>
     <string name="hint_add_content">Write here whats on your mind</string>
     <string name="btn_save2">Save</string>
-
-
-
-
 
 </resources>

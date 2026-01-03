@@ -10,25 +10,21 @@ import kotlinx.coroutines.launch
 
 class MyCenterViewModel(application: Application) : AndroidViewModel(application) {
 
-    // חיבור ל-Repository (שכבת הנתונים)
     private val repository: MyCenterRepository = MyCenterRepository(application)
 
     // רשימת כל הפריטים (מתעדכנת אוטומטית מה-LiveData של ה-Room)
     val itemsLiveData: LiveData<List<Item>> = repository.allItems
 
-    // --- ניהול פריט נבחר (למעבר בין מסכים) ---
-    // 1. משתנה פרטי שניתן לשינוי (Mutable) - מחזיק את הפריט או null
+    //  ניהול פריט נבחר (למעבר בין מסכים)
     private val _selectedItem = MutableLiveData<Item?>()
 
-    // 2. משתנה ציבורי לקריאה בלבד (LiveData) - המסכים מאזינים לזה
     val selectedItem: LiveData<Item?> get() = _selectedItem
 
-    // 3. הפונקציה שמעדכנת את הפריט הנבחר
+    // מעדכן את הפריט שנבחר
     fun setItem(item: Item?) {
         _selectedItem.value = item
     }
 
-    // --- פעולות דאטה-בייס (Coroutines) ---
 
     // הוספת פריט
     fun addItem(item: Item) {
@@ -37,7 +33,7 @@ class MyCenterViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    // מחיקת פריט (שינינו ל-deleteItem כדי שיהיה תואם ל-Repo)
+    // מחיקת פריט
     fun deleteItem(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteItem(item)

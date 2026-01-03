@@ -1,15 +1,15 @@
 package com.first.ahikarov
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import android.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.fragment.app.activityViewModels
 import com.first.ahikarov.databinding.MyCenterMainLayoutBinding
 
 class MyCenterFragmentMain : Fragment() {
@@ -22,7 +22,7 @@ class MyCenterFragmentMain : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MyCenterMainLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -30,15 +30,14 @@ class MyCenterFragmentMain : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. הגדרת LayoutManager (כמו קודם)
         binding.recyclerPictures.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerSongs.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerQuotes.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        // 2. יצירת אדפטרים ריקים וחיבור מיידי! (זה מה שפותר את האזהרה)
 
+        // --- תיקון 1: מחקנו את emptyList() ---
         // אדפטר לתמונות
-        val picturesAdapter = MediaAdapter(emptyList(),
+        val picturesAdapter = MediaAdapter(
             onItemClick = { item ->
                 viewModel.setItem(item)
                 findNavController().navigate(R.id.action_myCenterFragmentMain_to_detailItemFragment)
@@ -47,8 +46,9 @@ class MyCenterFragmentMain : Fragment() {
         )
         binding.recyclerPictures.adapter = picturesAdapter
 
+        // --- תיקון 2: מחקנו את emptyList() ---
         // אדפטר לשירים
-        val songsAdapter = MediaAdapter(emptyList(),
+        val songsAdapter = MediaAdapter(
             onItemClick = { item ->
                 viewModel.setItem(item)
                 findNavController().navigate(R.id.action_myCenterFragmentMain_to_detailItemFragment)
@@ -57,14 +57,15 @@ class MyCenterFragmentMain : Fragment() {
         )
         binding.recyclerSongs.adapter = songsAdapter
 
+        // --- תיקון 3: מחקנו את emptyList() ---
         // אדפטר לציטוטים
-        val quotesAdapter = QuoteAdapter(emptyList()) { itemToDelete ->
+        val quotesAdapter = QuoteAdapter { itemToDelete ->
             showDeleteDialog(itemToDelete)
         }
         binding.recyclerQuotes.adapter = quotesAdapter
 
 
-        // 3. האזנה לשינויים - עכשיו רק מעדכנים את האדפטרים הקיימים
+        // עדכון אדפטרים הקיימים
         viewModel.itemsLiveData.observe(viewLifecycleOwner) { allItems ->
 
             // סינון הרשימות
@@ -73,6 +74,7 @@ class MyCenterFragmentMain : Fragment() {
             val quotesList = allItems.filter { it.type == 2 }
 
             // עדכון הנתונים בתוך האדפטרים
+            // (הפונקציה updateList קיימת כי שמרנו אותה בתוך האדפטרים לנוחות)
             picturesAdapter.updateList(imagesList)
             songsAdapter.updateList(songsList)
             quotesAdapter.updateList(quotesList)
