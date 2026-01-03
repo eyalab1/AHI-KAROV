@@ -1,4 +1,4 @@
-package com.first.ahikarov.peaceofmind
+package com.first.ahikarov.ui.peaceofmind
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.PeaceOfMindBinding
-import com.first.ahikarov.peaceofmind.PeaceOfMindViewModel.BreathingState
+import com.first.ahikarov.ui.peaceofmind.PeaceOfMindViewModel.BreathingState
 
 class PeaceOfMindFragment : Fragment() {
 

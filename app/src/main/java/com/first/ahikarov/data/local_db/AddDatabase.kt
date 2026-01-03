@@ -1,9 +1,11 @@
-package com.first.ahikarov
+package com.first.ahikarov.data.local_db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.first.ahikarov.data.models.EmotionEntry
+import com.first.ahikarov.data.models.Item
 
 @Database(
     entities = [Item::class, EmotionEntry::class],

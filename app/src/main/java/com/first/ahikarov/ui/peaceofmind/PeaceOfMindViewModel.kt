@@ -1,4 +1,4 @@
-package com.first.ahikarov.peaceofmind
+package com.first.ahikarov.ui.peaceofmind
 
 import android.os.Handler
 import android.os.Looper
@@ -15,13 +15,13 @@ class PeaceOfMindViewModel : ViewModel() {
     private val _currentState = MutableLiveData<BreathingState>(BreathingState.IDLE)
     val currentState: LiveData<BreathingState> = _currentState
 
-    private val _isActive = MutableLiveData<Boolean>(false)
+    private val _isActive = MutableLiveData(false)
     val isActive: LiveData<Boolean> = _isActive
 
-    private val _cycleCount = MutableLiveData<Int>(0)
+    private val _cycleCount = MutableLiveData(0)
     val formattedCycles: LiveData<String> = _cycleCount.map { count -> "cycle $count" }
 
-    private val _secondsElapsed = MutableLiveData<Int>(0)
+    private val _secondsElapsed = MutableLiveData(0)
     val formattedTime: LiveData<String> = _secondsElapsed.map { totalSeconds ->
         val minutes = totalSeconds / 60
         val seconds = totalSeconds % 60

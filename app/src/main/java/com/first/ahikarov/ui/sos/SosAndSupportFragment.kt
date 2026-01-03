@@ -1,5 +1,7 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.sos
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.first.ahikarov.R
 import com.first.ahikarov.databinding.SosAndSupportLayoutBinding
 
 class SosAndSupportFragment : Fragment() {
@@ -144,7 +147,7 @@ class SosAndSupportFragment : Fragment() {
 
     // הדיאלוג אל מול המשתמש
     private fun showFinishDialog() {
-        android.app.AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle(R.string.dialog_help_title)
             .setMessage(R.string.dialog_help_message)
             .setCancelable(false)
@@ -160,7 +163,7 @@ class SosAndSupportFragment : Fragment() {
     // הפונקציה חיוג
     private fun dialHelpNumber() {
         val phoneNumber = "1201" // ער"ן
-        val intent = android.content.Intent(android.content.Intent.ACTION_DIAL)
+        val intent = Intent(Intent.ACTION_DIAL)
         intent.data = "tel:$phoneNumber".toUri()
         startActivity(intent)
     }
