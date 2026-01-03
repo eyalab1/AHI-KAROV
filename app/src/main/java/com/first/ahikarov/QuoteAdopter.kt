@@ -2,12 +2,15 @@ package com.first.ahikarov
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.first.ahikarov.databinding.ItemQuoteCardBinding
 
-class QuoteAdapter(private var items: List<Item>, private val onItemLongClick: (Item) -> Unit)
-    : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
 
+class QuoteAdapter(
+    private val onItemLongClick: (Item) -> Unit
+) : ListAdapter<Item, QuoteAdapter.QuoteViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuoteViewHolder {
         val binding = ItemQuoteCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -15,13 +18,11 @@ class QuoteAdapter(private var items: List<Item>, private val onItemLongClick: (
     }
 
     override fun onBindViewHolder(holder: QuoteViewHolder, position: Int) {
-        holder.bind(items[position], onItemLongClick)
+        holder.bind(getItem(position), onItemLongClick)
     }
 
-    //return the size of the item
-    override fun getItemCount(): Int = items.size
-
-    class QuoteViewHolder(private val binding: ItemQuoteCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class QuoteViewHolder(private val binding: ItemQuoteCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item, onLongClick: (Item) -> Unit) {
             binding.quoteText.text = item.text
@@ -32,8 +33,19 @@ class QuoteAdapter(private var items: List<Item>, private val onItemLongClick: (
             }
         }
     }
+
+
+    class DiffCallback : DiffUtil.ItemCallback<Item>() {
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+            return oldItem.id == newItem.id // בדיקה לפי תעודת זהות
+        }
+
+        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+            return oldItem == newItem // בדיקת תוכן
+        }
+    }
+
     fun updateList(newItems: List<Item>) {
-        this.items = newItems
-        notifyDataSetChanged()
+        submitList(newItems)
     }
 }

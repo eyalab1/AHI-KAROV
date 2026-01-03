@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,7 +22,7 @@ class MyCenterFragment : Fragment() {
     private var _binding: MyCenterLayoutBinding? = null
     private val binding get() = _binding!!
 
-    // חיבור ל-ViewModel המשותף
+    // חיבור ל-ViewModel משותף
     private val viewModel: MyCenterViewModel by activityViewModels()
 
     private var selectedImageUri: Uri? = null
@@ -77,22 +78,22 @@ class MyCenterFragment : Fragment() {
             currentEditingId = itemToEdit.id
             binding.finishBtn.text = getString(R.string.btn_update_item)
 
-            // 1. מילוי סוג וכותרת
+            // מילוי סוג וכותרת
             binding.typeSpinner.setSelection(itemToEdit.type)
             binding.etItemTitle.setText(itemToEdit.title)
 
-            // 2. מילוי תוכן לפי סוג
+            // מילוי תוכן לפי סוג
             when (itemToEdit.type) {
                 TYPE_IMAGE -> {
                     binding.etItemDescription.setText(itemToEdit.text)
                     if (itemToEdit.photo != null) {
-                        selectedImageUri = Uri.parse(itemToEdit.photo)
+                        selectedImageUri = itemToEdit.photo.toUri()
                         binding.resultImage.setImageURI(selectedImageUri)
                     }
                 }
                 TYPE_SONG -> {
                     if (itemToEdit.text != null) {
-                        selectedAudioUri = Uri.parse(itemToEdit.text)
+                        selectedAudioUri = itemToEdit.text.toUri()
                         binding.tvSelectedAudioName.text = getString(R.string.msg_audio_loaded)
                     }
                 }
@@ -106,13 +107,13 @@ class MyCenterFragment : Fragment() {
             binding.finishBtn.text = getString(R.string.btn_save_new_item)
         }
 
-        // --- סגירת מקלדת בלחיצה מחוץ לשדה ---
+        //  סגירת מקלדת בלחיצה מחוץ לשדה
         val closeKeyboardListener = View.OnClickListener {
             hideKeyboard()
         }
         binding.root.setOnClickListener(closeKeyboardListener)
         binding.mainContainer.setOnClickListener(closeKeyboardListener)
-        // ----------------------------------------
+
 
         setupListeners()
         validateButtonState()
