@@ -1,7 +1,10 @@
-package com.first.ahikarov
+package com.first.ahikarov.data.reposetories
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import com.first.ahikarov.data.local_db.AppDatabase
+import com.first.ahikarov.data.local_db.ItemDao
+import com.first.ahikarov.data.models.Item
 
 class MyCenterRepository(application: Application) {
 
@@ -11,7 +14,7 @@ class MyCenterRepository(application: Application) {
 
     init {
         //  גישה למסד הנתונים הראשי
-        val db = AppDatabase.getDatabase(application)
+        val db = AppDatabase.Companion.getDatabase(application)
         itemDao = db.itemDao()
         allItems = itemDao.getAllItems()
     }

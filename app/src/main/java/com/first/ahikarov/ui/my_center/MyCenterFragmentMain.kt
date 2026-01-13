@@ -1,4 +1,4 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.my_center
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.first.ahikarov.data.models.Item
+import com.first.ahikarov.R
 import com.first.ahikarov.databinding.MyCenterMainLayoutBinding
 
 class MyCenterFragmentMain : Fragment() {

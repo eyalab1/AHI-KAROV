@@ -1,4 +1,4 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.emotion_journal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.first.ahikarov.data.models.EmotionEntry
+import com.first.ahikarov.R
 import com.first.ahikarov.databinding.AddJournalLayoutBinding
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class AddEmotionFragment : Fragment() {
 

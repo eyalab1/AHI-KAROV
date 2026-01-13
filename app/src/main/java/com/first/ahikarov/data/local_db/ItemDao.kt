@@ -1,4 +1,4 @@
-package com.first.ahikarov
+package com.first.ahikarov.data.local_db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.first.ahikarov.data.models.Item
 
 @Dao
 interface ItemDao {

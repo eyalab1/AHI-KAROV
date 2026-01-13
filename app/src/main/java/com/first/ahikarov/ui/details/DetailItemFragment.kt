@@ -1,4 +1,4 @@
-package com.first.ahikarov
+package com.first.ahikarov.ui.details
 
 import android.media.MediaPlayer
 import android.net.Uri
@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.first.ahikarov.R
 import com.first.ahikarov.databinding.DetailItemLayoutBinding
+import com.first.ahikarov.ui.my_center.MyCenterViewModel
 
 class DetailItemFragment : Fragment() {
 
@@ -30,16 +32,13 @@ class DetailItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
-            // זו בדיקה שאם אין פריט, יוצאים
             if (item == null) return@observe
 
-            // הפעלת כפתור העריכה ✏️
             binding.btnEditItem.visibility = View.VISIBLE
             binding.btnEditItem.setOnClickListener {
                 findNavController().navigate(R.id.action_detailItemFragment_to_myCenterFragment)
             }
 
-            // 1. כותרת
             if (item.title.isEmpty()) {
                 binding.detailTitle.visibility = View.GONE
             } else {
@@ -47,9 +46,8 @@ class DetailItemFragment : Fragment() {
                 binding.detailTitle.visibility = View.VISIBLE
             }
 
-            // 2. תצוגה לפי סוג
             when (item.type) {
-                0 -> { // תמונה
+                0 -> {
                     binding.detailImage.visibility = View.VISIBLE
                     binding.btnPlayAudio.visibility = View.GONE
                     binding.detailDescription.text = item.text ?: ""
@@ -67,13 +65,13 @@ class DetailItemFragment : Fragment() {
                         binding.detailImage.setImageResource(R.mipmap.ic_launcher)
                     }
                 }
-                1 -> { // שיר
+                1 -> {
                     binding.detailImage.visibility = View.GONE
                     binding.btnPlayAudio.visibility = View.VISIBLE
                     binding.detailDescription.text = "Click Play to listen 🎵"
                     binding.btnPlayAudio.setOnClickListener { playAudio(item.text) }
                 }
-                2 -> { // ציטוט
+                2 -> {
                     binding.detailImage.visibility = View.GONE
                     binding.btnPlayAudio.visibility = View.GONE
                     binding.detailDescription.text = item.text

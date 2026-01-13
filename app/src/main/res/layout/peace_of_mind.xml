@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_soft_gradient"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp"
+        tools:context=".ui.peaceofmind.PeaceOfMindFragment">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/protocol_4"
+            android:textColor="#37474F"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/timer_default"
+            android:textColor="#37474F"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <TextView
+            android:id="@+id/tvCycles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:alpha="0.6"
+            android:text="@string/cycle_count"
+            android:textColor="#37474F"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTimer"
+            tools:text="cycle 0" />
+
+        <View
+            android:id="@+id/auraView"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_breathing_box"
+            app:layout_constraintBottom_toBottomOf="@id/breathingBox"
+            app:layout_constraintEnd_toEndOf="@id/breathingBox"
+            app:layout_constraintStart_toStartOf="@id/breathingBox"
+            app:layout_constraintTop_toTopOf="@id/breathingBox" />
+
+        <View
+            android:id="@+id/breathingBox"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="130dp"
+            android:background="@drawable/bg_breathing_box"
+            android:elevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCycles" />
+
+        <TextView
+            android:id="@+id/tvBreathStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ready"
+            android:textColor="#455A64"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/breathingBox"
+            app:layout_constraintEnd_toEndOf="@id/breathingBox"
+            app:layout_constraintStart_toStartOf="@id/breathingBox"
+            app:layout_constraintTop_toTopOf="@id/breathingBox" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStart"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="180dp"
+            android:text="@string/start"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            app:backgroundTint="#00796B"
+            app:cornerRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/breathingBox" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

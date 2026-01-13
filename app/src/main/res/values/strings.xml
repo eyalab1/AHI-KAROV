@@ -91,4 +91,16 @@
     <string name="hint_add_content">Write here whats on your mind</string>
     <string name="btn_save2">Save</string>
 
+
+    <string name="inhale">Inhale</string>
+    <string name="exhale">Exhale</string>
+    <string name="hold">Hold</string>
+    <string name="ready">Ready?</string>
+    <string name="start_practice">Start Practice</string>
+    <string name="stop_practice">Stop Practice</string>
+    <string name="protocol_4">Protocol 4</string>
+    <string name="timer_default">00:00</string>
+    <string name="cycle_count">cycle %1$d</string>
+    <string name="start">Start</string>
+
 </resources>
