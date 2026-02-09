@@ -41,6 +41,10 @@
     <string name="title_my_songs">My Songs</string>
     <string name="title_my_quotes">My Inspiration Quotes</string>
 
+    <string name="empty_pictures">No pictures yet. Click +</string>
+    <string name="empty_songs">No songs yet. Click +</string>
+    <string name="empty_quotes">No quotes yet. Click +</string>
+
     <string name="btn_update_item">Update Item</string>
     <string name="btn_save_new_item">Save New Item</string>
     <string name="msg_audio_updated">Audio Updated! ✅</string>
@@ -76,6 +80,7 @@
     <string name="msg_done">Exercise completed successfully</string>
     <string name="sos_steps_title">Steps to Calm</string>
     <string name="sos_step_breathe">Breathe</string>
+    <string name="msg_empty_list">No entries yet.\nClick + to add one!</string>
 
     <string name="dialog_help_title">Check-in</string>
     <string name="dialog_help_message">You have finished the exercise.\nDo you still feel the need for immediate help?</string>
@@ -91,4 +96,14 @@
     <string name="hint_add_content">Write here whats on your mind</string>
     <string name="btn_save2">Save</string>
 
+    <string name="protocol_4">Protocol 4-7-8</string>
+    <string name="timer_default">00:00</string>
+    <string name="cycle_count">Cycles: %d</string>
+    <string name="ready">Ready?</string>
+    <string name="start">Start</string>
+    <string name="start_practice">Start Practice</string>
+    <string name="stop_practice">Stop Practice</string>
+    <string name="inhale">Inhale</string>
+    <string name="exhale">Exhale</string>
+    <string name="hold">Hold</string>
 </resources>

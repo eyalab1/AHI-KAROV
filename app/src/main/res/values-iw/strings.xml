@@ -47,6 +47,9 @@
     <string name="msg_audio_loaded">קובץ שמע נוכחי (טעון)</string>
     <string name="title">כותרת</string>
 
+    <string name="empty_pictures">אין עדיין תמונות. לחץ על +</string>
+    <string name="empty_songs">אין עדיין שירים. לחץ על +</string>
+    <string name="empty_quotes">אין עדיין ציטוטים. לחץ על +</string>
     <string name="clear_text">"נקה טקסט"</string>
     <string name="title_Welcome_Back">"ברוך שובך"</string>
 
@@ -90,7 +93,7 @@
     <string name="title_add_moment">הרגע שלי</string>
     <string name="hint_add_content">כתוב כאן מה עובר עליך</string>
     <string name="btn_save2">שמור</string>
-
+    <string name="msg_empty_list">אין עדיין רשומות.\nלחץ על + כדי להוסיף!</string>
 
     <string name="inhale">שאיפה</string>
     <string name="exhale">נשיפה</string>

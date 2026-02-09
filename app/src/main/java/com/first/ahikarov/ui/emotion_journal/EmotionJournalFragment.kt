@@ -51,7 +51,18 @@ class EmotionJournalFragment: Fragment() {
 
     private fun setupObservers() {
         viewModel.entries.observe(viewLifecycleOwner) { list ->
+            // מעדכן את הרשימה באדפטר
             adapter.submitList(list.toList())
+
+            //  בדיקה האם הרשימה ריקה
+            if (list.isEmpty()) {
+                // אם ריק: תציג את הטקסט, תסתיר את הרשימה
+                binding.tvEmptyState.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
+            } else {
+                binding.tvEmptyState.visibility = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
+            }
         }
     }
 

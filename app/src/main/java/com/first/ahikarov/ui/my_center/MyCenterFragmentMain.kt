@@ -64,7 +64,7 @@ class MyCenterFragmentMain : Fragment() {
         binding.recyclerQuotes.adapter = quotesAdapter
 
 
-        // עדכון אדפטרים הקיימים
+        // עדכון אדפטרים הקיימים + טיפול במצבים ריקים (Empty State)
         viewModel.itemsLiveData.observe(viewLifecycleOwner) { allItems ->
 
             // סינון הרשימות
@@ -72,11 +72,35 @@ class MyCenterFragmentMain : Fragment() {
             val songsList = allItems.filter { it.type == 1 }
             val quotesList = allItems.filter { it.type == 2 }
 
-            // עדכון הנתונים בתוך האדפטרים
-            // (הפונקציה updateList קיימת כי שמרנו אותה בתוך האדפטרים לנוחות)
+            // 1. טיפול בתמונות
             picturesAdapter.updateList(imagesList)
+            if (imagesList.isEmpty()) {
+                binding.tvEmptyPictures.visibility = View.VISIBLE
+                binding.recyclerPictures.visibility = View.GONE
+            } else {
+                binding.tvEmptyPictures.visibility = View.GONE
+                binding.recyclerPictures.visibility = View.VISIBLE
+            }
+
+            // 2. טיפול בשירים
             songsAdapter.updateList(songsList)
+            if (songsList.isEmpty()) {
+                binding.tvEmptySongs.visibility = View.VISIBLE
+                binding.recyclerSongs.visibility = View.GONE
+            } else {
+                binding.tvEmptySongs.visibility = View.GONE
+                binding.recyclerSongs.visibility = View.VISIBLE
+            }
+
+            // 3. טיפול בציטוטים
             quotesAdapter.updateList(quotesList)
+            if (quotesList.isEmpty()) {
+                binding.tvEmptyQuotes.visibility = View.VISIBLE
+                binding.recyclerQuotes.visibility = View.GONE
+            } else {
+                binding.tvEmptyQuotes.visibility = View.GONE
+                binding.recyclerQuotes.visibility = View.VISIBLE
+            }
         }
 
         // כפתור הוספה

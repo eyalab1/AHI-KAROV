@@ -30,7 +30,6 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="40dp"/>
 
-            <!-- Section: Pictures -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,11 +45,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="12dp"
                 tools:listitem="@android:layout/simple_list_item_1" />
 
+            <TextView
+                android:id="@+id/tvEmptyPictures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_pictures"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="32dp"
+                android:visibility="gone"/>
 
-            <!-- Section: Songs -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,11 +75,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="12dp"
                 tools:listitem="@android:layout/simple_list_item_1" />
 
+            <TextView
+                android:id="@+id/tvEmptySongs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_songs"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="32dp"
+                android:visibility="gone"/>
 
-            <!-- Section: Quotes -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,8 +105,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginBottom="80dp"
+                android:layout_marginBottom="12dp"
                 tools:listitem="@android:layout/simple_list_item_1" />
+
+            <TextView
+                android:id="@+id/tvEmptyQuotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_quotes"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="80dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>
