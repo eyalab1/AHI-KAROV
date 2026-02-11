@@ -1,32 +1,30 @@
 package com.first.ahikarov.ui.my_center
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.first.ahikarov.data.models.Item
 import com.first.ahikarov.data.reposetories.MyCenterRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MyCenterViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository: MyCenterRepository = MyCenterRepository(application)
-
-    // רשימת כל הפריטים (מתעדכנת אוטומטית מה-LiveData של ה-Room)
+@HiltViewModel
+class MyCenterViewModel @Inject constructor(
+    private val repository: MyCenterRepository
+) : ViewModel() {
+    // רשימת כל הפריטים (מגיע מה-Repo שקיבלנו)
     val itemsLiveData: LiveData<List<Item>> = repository.allItems
 
-    //  ניהול פריט נבחר (למעבר בין מסכים)
+    // ניהול פריט נבחר
     private val _selectedItem = MutableLiveData<Item?>()
-
     val selectedItem: LiveData<Item?> get() = _selectedItem
 
-    // מעדכן את הפריט שנבחר
     fun setItem(item: Item?) {
         _selectedItem.value = item
     }
-
 
     // הוספת פריט
     fun addItem(item: Item) {

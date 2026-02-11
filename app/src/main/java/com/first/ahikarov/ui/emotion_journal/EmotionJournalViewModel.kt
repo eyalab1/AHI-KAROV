@@ -1,20 +1,19 @@
 package com.first.ahikarov.ui.emotion_journal
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.first.ahikarov.data.models.EmotionEntry
 import com.first.ahikarov.data.reposetories.EmotionRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EmotionJournalViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class EmotionJournalViewModel @Inject constructor(
+    private val repository: EmotionRepository
+) : ViewModel() {
 
-
-    private val repository = EmotionRepository(application)
-
-
-    val entries: LiveData<List<EmotionEntry>> = repository.allEntries
+    val entries = repository.allEntries
 
     fun addEntry(entry: EmotionEntry) {
         viewModelScope.launch {

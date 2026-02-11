@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.DetailItemLayoutBinding
 import com.first.ahikarov.ui.my_center.MyCenterViewModel
-
+import dagger.hilt.android.AndroidEntryPoint
+@AndroidEntryPoint
 class DetailItemFragment : Fragment() {
 
     private var _binding: DetailItemLayoutBinding? = null

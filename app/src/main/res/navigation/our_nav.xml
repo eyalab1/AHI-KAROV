@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_myCenterFragmentMain_to_detailItemFragment"
             app:destination="@id/detailItemFragment" />
+        <action
+            android:id="@+id/action_myCenterFragmentMain_to_inspirationFragment"
+            app:destination="@id/inspirationFragment" />
     </fragment>
 
     <fragment
@@ -81,5 +84,9 @@
         android:name="com.first.ahikarov.ui.peaceofmind.PeaceOfMindFragment"
         android:label="peace_of_mind"
         tools:layout="@layout/peace_of_mind" />
+    <fragment
+        android:id="@+id/inspirationFragment"
+        android:name="com.first.ahikarov.ui.inspiration.InspirationFragment"
+        android:label="InspirationFragment" />
 
 </navigation>

@@ -17,7 +17,9 @@ import androidx.fragment.app.viewModels
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.PeaceOfMindBinding
 import com.first.ahikarov.ui.peaceofmind.PeaceOfMindViewModel.BreathingState
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PeaceOfMindFragment : Fragment() {
 
     companion object {

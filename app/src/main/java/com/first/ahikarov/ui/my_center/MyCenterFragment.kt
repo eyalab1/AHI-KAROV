@@ -20,7 +20,9 @@ import androidx.navigation.fragment.findNavController
 import com.first.ahikarov.data.models.Item
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.MyCenterLayoutBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyCenterFragment : Fragment() {
 
     private var _binding: MyCenterLayoutBinding? = null

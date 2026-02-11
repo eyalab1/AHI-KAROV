@@ -14,7 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.SosAndSupportLayoutBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SosAndSupportFragment : Fragment() {
 
     private var _binding: SosAndSupportLayoutBinding? = null

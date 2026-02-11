@@ -1,23 +1,15 @@
 package com.first.ahikarov.data.reposetories
 
-import android.app.Application
 import androidx.lifecycle.LiveData
-import com.first.ahikarov.data.local_db.AppDatabase
 import com.first.ahikarov.data.local_db.ItemDao
 import com.first.ahikarov.data.models.Item
+import javax.inject.Inject
 
-class MyCenterRepository(application: Application) {
+class MyCenterRepository @Inject constructor(
+    private val itemDao: ItemDao
+) {
 
-    private var itemDao: ItemDao
-
-    val allItems: LiveData<List<Item>>
-
-    init {
-        //  גישה למסד הנתונים הראשי
-        val db = AppDatabase.Companion.getDatabase(application)
-        itemDao = db.itemDao()
-        allItems = itemDao.getAllItems()
-    }
+    val allItems: LiveData<List<Item>> = itemDao.getAllItems()
 
     // הוספת פריט חדש
     suspend fun addItem(item: Item) {

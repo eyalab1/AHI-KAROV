@@ -6,9 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import dagger.hilt.android.lifecycle.HiltViewModel // <--- הוספתי
 import java.util.Locale
+import javax.inject.Inject // <--- הוספתי
 
-class PeaceOfMindViewModel : ViewModel() {
+@HiltViewModel // <--- 1. חובה
+class PeaceOfMindViewModel @Inject constructor() : ViewModel() { // <--- 2. בנאי ריק ש-Hilt מכיר
 
     enum class BreathingState { IDLE, INHALE, HOLD_IN, EXHALE, HOLD_OUT }
 
@@ -20,7 +23,6 @@ class PeaceOfMindViewModel : ViewModel() {
 
     private val _cycleCount = MutableLiveData(0)
     val formattedCycles: LiveData<String> = _cycleCount.map { count -> "cycle $count" }
-
     private val _secondsElapsed = MutableLiveData(0)
     val formattedTime: LiveData<String> = _secondsElapsed.map { totalSeconds ->
         val minutes = totalSeconds / 60
@@ -34,7 +36,7 @@ class PeaceOfMindViewModel : ViewModel() {
     fun toggleBreathing() {
         val nextStatus = !(_isActive.value ?: false)
         _isActive.value = nextStatus
-        
+
         if (nextStatus) {
             startTimer()
             _currentState.value = BreathingState.INHALE
@@ -53,12 +55,14 @@ class PeaceOfMindViewModel : ViewModel() {
     private fun startTimer() {
         timerRunnable = object : Runnable {
             override fun run() {
-                if (doIfActive { _secondsElapsed.value = (_secondsElapsed.value ?: 0) + 1 }) {
+                // תיקון קטן ללוגיקה כדי שזה ירוץ חלק
+                if (_isActive.value == true) {
+                    _secondsElapsed.value = (_secondsElapsed.value ?: 0) + 1
                     handler.postDelayed(this, 1000)
                 }
             }
         }
-        handler.postDelayed(timerRunnable!!, 1000)
+        timerRunnable?.let { handler.postDelayed(it, 1000) }
     }
 
     private fun stopTimer() {
@@ -67,7 +71,7 @@ class PeaceOfMindViewModel : ViewModel() {
 
     fun onStepFinished() {
         if (_isActive.value != true) return
-        
+
         val nextState = when (_currentState.value) {
             BreathingState.INHALE -> BreathingState.HOLD_IN
             BreathingState.HOLD_IN -> BreathingState.EXHALE
@@ -81,13 +85,7 @@ class PeaceOfMindViewModel : ViewModel() {
         _currentState.value = nextState
     }
 
-    private inline fun doIfActive(action: () -> Unit): Boolean {
-        return if (_isActive.value == true) {
-            action()
-            true
-        } else false
-    }
-
+    // הוספתי את override כדי לנקות את הטיימר כשהמסך נסגר
     override fun onCleared() {
         super.onCleared()
         stopTimer()

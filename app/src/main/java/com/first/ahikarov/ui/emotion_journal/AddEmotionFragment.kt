@@ -6,19 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels // <--- שים לב: זה ה-Import הנכון
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.first.ahikarov.data.models.EmotionEntry
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.AddJournalLayoutBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddEmotionFragment : Fragment() {
 
-    private val viewModel: EmotionJournalViewModel
-            by navGraphViewModels(R.id.our_nav)
+
+    private val viewModel: EmotionJournalViewModel by viewModels()
+
     private var _binding: AddJournalLayoutBinding? = null
     private val binding get() = _binding!!
 
@@ -46,6 +49,7 @@ class AddEmotionFragment : Fragment() {
                 content = content
             )
 
+
             viewModel.hasEntryForDate(entry.date) { exists ->
                 if (exists) {
                     Toast.makeText(requireContext(), getString(R.string.entry_exists_today), Toast.LENGTH_SHORT).show()
@@ -57,7 +61,6 @@ class AddEmotionFragment : Fragment() {
                 }
             }
         }
-
     }
 
     override fun onDestroyView() {

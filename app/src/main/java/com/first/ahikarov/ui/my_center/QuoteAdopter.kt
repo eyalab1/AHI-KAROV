@@ -38,11 +38,11 @@ class QuoteAdapter(
 
     class DiffCallback : DiffUtil.ItemCallback<Item>() {
         override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return oldItem.id == newItem.id // בדיקה לפי תעודת זהות
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return oldItem == newItem // בדיקת תוכן
+            return oldItem == newItem
         }
     }
 

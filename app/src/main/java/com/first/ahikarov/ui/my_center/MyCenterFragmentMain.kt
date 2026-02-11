@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.first.ahikarov.data.models.Item
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.MyCenterMainLayoutBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyCenterFragmentMain : Fragment() {
 
     private var _binding: MyCenterMainLayoutBinding? = null
@@ -35,7 +38,6 @@ class MyCenterFragmentMain : Fragment() {
         binding.recyclerPictures.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerSongs.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerQuotes.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
 
         // אדפטר לתמונות
         val picturesAdapter = MediaAdapter(
@@ -103,14 +105,36 @@ class MyCenterFragmentMain : Fragment() {
             }
         }
 
-        // כפתור הוספה
+        //  כפתור ההוספה: פותח את הדיאלוג
         binding.add.setOnClickListener {
+            showAddOptionsDialog()
+        }
+
+    } //  כאן נסגרת הפונקציה onViewCreated
+
+
+    private fun showAddOptionsDialog() {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.dialog_add_options, null)
+
+        dialog.setContentView(view)
+
+        // כפתור 1: יצירה ידנית
+        view.findViewById<View>(R.id.optionManual).setOnClickListener {
+            dialog.dismiss()
             viewModel.setItem(null)
             findNavController().navigate(R.id.action_center_main_to_add)
         }
+
+        // כפתור 2: חיפוש ברשת
+        view.findViewById<View>(R.id.optionWeb).setOnClickListener {
+            dialog.dismiss()
+            findNavController().navigate(R.id.action_myCenterFragmentMain_to_inspirationFragment)
+        }
+
+        dialog.show()
     }
 
-    // הצגת הדיאלוג
     private fun showDeleteDialog(item: Item) {
         AlertDialog.Builder(context)
             .setTitle("Delete Item")
