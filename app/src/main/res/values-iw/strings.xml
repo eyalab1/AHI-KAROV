@@ -95,6 +95,14 @@
     <string name="btn_save2">שמור</string>
     <string name="msg_empty_list">אין עדיין רשומות.\nלחץ על + כדי להוסיף!</string>
 
+    <string name="title_discover_inspiration">גלה עולמות של השראה</string>
+    <string name="btn_quotes">ציטוטים</string>
+    <string name="btn_photos">תמונות</string>
+    <string name="btn_music">להיטים 🎵</string>
+    <string name="hint_search_song">חפש שיר ספציפי...</string>
+    <string name="btn_search_symbol">🔍</string>
+    <string name="msg_select_category">👆 אנא בחר קטגוריה למעלה כדי להתחיל!</string>
+
     <string name="inhale">שאיפה</string>
     <string name="exhale">נשיפה</string>
     <string name="hold">עצירה</string>

@@ -23,7 +23,10 @@ class InspirationFragment : Fragment() {
     private var _binding: InspirationLayoutBinding? = null
     private val binding get() = _binding!!
 
+    // ViewModel של המסך הזה (לטעינת נתונים מהאינטרנט)
     private val viewModel: InspirationViewModel by viewModels()
+
+    // ViewModel משותף (לשמירת נתונים ב-Room דרך MyCenter)
     private val mainViewModel: MyCenterViewModel by activityViewModels()
 
     private lateinit var adapter: InspirationAdapter
@@ -39,6 +42,7 @@ class InspirationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // אתחול האדפטר עם פונקציית השמירה
         adapter = InspirationAdapter { itemToSave ->
             saveItemToMyCenter(itemToSave)
         }
@@ -51,18 +55,21 @@ class InspirationFragment : Fragment() {
         // 1. ציטוטים -> הסתרת החיפוש
         binding.btnGetQuote.setOnClickListener {
             binding.searchContainer.visibility = View.GONE
+            binding.tvInstruction.visibility = View.GONE // העלמת ההנחיה בלחיצה
             viewModel.fetchQuotes()
         }
 
         // 2. תמונות -> הסתרת החיפוש
         binding.btnGetImages.setOnClickListener {
             binding.searchContainer.visibility = View.GONE
+            binding.tvInstruction.visibility = View.GONE // העלמת ההנחיה בלחיצה
             viewModel.fetchImages()
         }
 
         // 3. מוזיקה (להיטים) -> הצגת החיפוש
         binding.btnGetMusic.setOnClickListener {
             binding.searchContainer.visibility = View.VISIBLE
+            binding.tvInstruction.visibility = View.GONE // העלמת ההנחיה בלחיצה
             binding.etSearchQuery.text.clear() // ניקוי טקסט קודם
             viewModel.fetchTopTracks()
         }
@@ -81,18 +88,23 @@ class InspirationFragment : Fragment() {
 
         viewModel.quotes.observe(viewLifecycleOwner) { quotes ->
             adapter.updateData(quotes)
+            // אם הרשימה לא ריקה - וודא שההנחיה מוסתרת
+            if (quotes.isNotEmpty()) binding.tvInstruction.visibility = View.GONE
         }
 
         viewModel.images.observe(viewLifecycleOwner) { images ->
             adapter.updateData(images)
+            if (images.isNotEmpty()) binding.tvInstruction.visibility = View.GONE
         }
 
         viewModel.music.observe(viewLifecycleOwner) { tracks ->
             adapter.updateData(tracks)
+            if (tracks.isNotEmpty()) binding.tvInstruction.visibility = View.GONE
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            if (isLoading) binding.tvInstruction.visibility = View.GONE
         }
     }
 
@@ -100,26 +112,29 @@ class InspirationFragment : Fragment() {
         val newItem: Item? = when (data) {
             is QuoteResponse -> {
                 Item(
-                    title = "Inspirational Quote",
-                    text = "${data.q}\n- ${data.a}",
+                    title = data.q,
+                    text = "- ${data.a}",
                     photo = null,
-                    type = 2
+                    type = 2,
+                    link = null
                 )
             }
             is ImageItem -> {
                 Item(
                     title = "Inspiration Image",
-                    text = null,
+                    text = "From Picsum",
                     photo = data.imageUrl,
-                    type = 0
+                    type = 0,
+                    link = data.imageUrl
                 )
             }
             is Track -> {
                 Item(
                     title = data.title,
-                    text = "${data.artist.name} (Link: ${data.preview})",
+                    text = data.artist.name,
                     photo = data.album.cover_medium,
-                    type = 1
+                    type = 1,
+                    link = data.preview
                 )
             }
             else -> null

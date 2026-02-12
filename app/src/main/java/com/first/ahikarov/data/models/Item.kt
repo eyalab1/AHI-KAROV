@@ -23,6 +23,9 @@ data class Item(
     @ColumnInfo(name = "item_image_url")
     val photo: String?,
 
+    @ColumnInfo(name = "item_link")
+    val link: String? = null,
+
     @ColumnInfo(name = "item_type")
     val type: Int
 ) : Parcelable

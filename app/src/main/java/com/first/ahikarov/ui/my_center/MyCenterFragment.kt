@@ -33,16 +33,23 @@ class MyCenterFragment : Fragment() {
     private var selectedImageUri: Uri? = null
     private var selectedAudioUri: Uri? = null
 
-    private var currentEditingId: Int = 0
+    private var currentEditingId: Int = 0 // 0 means new item
+
+    private var originalLink: String? = null
 
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
             try {
-                requireContext().contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            } catch (e: Exception) { e.printStackTrace() }
+                requireContext().contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             selectedImageUri = uri
-            binding.resultImage.setImageURI(null)
+            binding.resultImage.setImageURI(null) // Reset view
             binding.resultImage.setImageURI(uri)
             validateButtonState()
         }
@@ -51,11 +58,16 @@ class MyCenterFragment : Fragment() {
     private val pickAudioLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
             try {
-                requireContext().contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            } catch (e: Exception) { e.printStackTrace() }
+                requireContext().contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             selectedAudioUri = uri
-            binding.tvSelectedAudioName.text = getString(R.string.msg_audio_updated)
+            binding.tvSelectedAudioName.text = getString(R.string.msg_audio_updated) // "Audio Selected"
             validateButtonState()
         }
     }
@@ -66,7 +78,10 @@ class MyCenterFragment : Fragment() {
         private const val TYPE_QUOTE = 2
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = MyCenterLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,15 +91,23 @@ class MyCenterFragment : Fragment() {
 
         val itemToEdit = viewModel.selectedItem.value
 
-        if (itemToEdit != null) {
+        if (itemToEdit != null && itemToEdit.id != 0) {
+            //  מצב עריכה
             currentEditingId = itemToEdit.id
+            originalLink = itemToEdit.link
             binding.finishBtn.text = getString(R.string.btn_update_item)
+
+            // מגדירים את הספינר
             binding.typeSpinner.setSelection(itemToEdit.type)
+
+            // מגדירים כותרת
             binding.etItemTitle.setText(itemToEdit.title)
 
             when (itemToEdit.type) {
                 TYPE_IMAGE -> {
+                    // טקסט תיאור
                     binding.etItemDescription.setText(itemToEdit.text)
+                    // תמונה
                     if (itemToEdit.photo != null) {
                         selectedImageUri = itemToEdit.photo.toUri()
                         binding.resultImage.setImageURI(selectedImageUri)
@@ -92,8 +115,13 @@ class MyCenterFragment : Fragment() {
                 }
                 TYPE_SONG -> {
                     if (itemToEdit.text != null) {
-                        selectedAudioUri = itemToEdit.text.toUri()
-                        binding.tvSelectedAudioName.text = getString(R.string.msg_audio_loaded)
+
+                        try {
+                            selectedAudioUri = itemToEdit.text.toUri()
+                            binding.tvSelectedAudioName.text = getString(R.string.msg_audio_loaded)
+                        } catch (e: Exception) {
+                            binding.tvSelectedAudioName.text = itemToEdit.text
+                        }
                     }
                 }
                 TYPE_QUOTE -> {
@@ -101,20 +129,27 @@ class MyCenterFragment : Fragment() {
                 }
             }
         } else {
+            //  מצב יצירה חדשה
             currentEditingId = 0
-            binding.finishBtn.text = getString(R.string.btn_save_new_item)
+            originalLink = null
+            binding.finishBtn.text = getString(R.string.btn_save_new_item) // "Save Item"
         }
 
+        // סגירת מקלדת בלחיצה בחוץ
         val closeKeyboardListener = View.OnClickListener { hideKeyboard() }
         binding.root.setOnClickListener(closeKeyboardListener)
         binding.mainContainer.setOnClickListener(closeKeyboardListener)
 
         setupListeners()
+
+        // עדכון ראשוני של ה-UI לפי הספינר (ברירת מחדל 0 = תמונה)
+        updateViewBasedOnSelection(binding.typeSpinner.selectedItemPosition)
         validateButtonState()
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val currentFocusedView = view?.findFocus()
         if (currentFocusedView != null) {
             inputMethodManager.hideSoftInputFromWindow(currentFocusedView.windowToken, 0)
@@ -123,12 +158,23 @@ class MyCenterFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.finishBtn.setOnClickListener { saveOrUpdateItem() }
-        binding.imageBtn.setOnClickListener { pickImageLauncher.launch(arrayOf("image/*")) }
-        binding.btnPickAudio.setOnClickListener { pickAudioLauncher.launch(arrayOf("audio/*")) }
+        binding.finishBtn.setOnClickListener {
+            saveOrUpdateItem()
+        }
 
+        binding.imageBtn.setOnClickListener {
+            pickImageLauncher.launch(arrayOf("image/*"))
+        }
+
+        binding.btnPickAudio.setOnClickListener {
+            pickAudioLauncher.launch(arrayOf("audio/*"))
+        }
+
+        // מאזין לשינויי טקסט (כדי להפעיל/לכבות את כפתור השמירה)
         val textWatcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) { validateButtonState() }
+            override fun afterTextChanged(s: Editable?) {
+                validateButtonState()
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
@@ -136,11 +182,18 @@ class MyCenterFragment : Fragment() {
         binding.etItemTitle.addTextChangedListener(textWatcher)
         binding.etQuote.addTextChangedListener(textWatcher)
 
+        // מאזין לספינר (מחליף בין תמונה / שיר / ציטוט)
         binding.typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 updateViewBasedOnSelection(position)
                 validateButtonState()
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
@@ -150,63 +203,127 @@ class MyCenterFragment : Fragment() {
         val title = binding.etItemTitle.text.toString()
         var newItem: Item? = null
 
+        // בניית האובייקט לפי הסוג שנבחר
         when (type) {
             TYPE_IMAGE -> {
-                if (selectedImageUri == null && currentEditingId == 0) return
+                val description = binding.etItemDescription.text.toString()
+
+                // תמונה חדשה שנבחרה מהגלריה
                 if (selectedImageUri != null) {
-                    newItem = Item(currentEditingId, title, binding.etItemDescription.text.toString(), selectedImageUri.toString(), type)
-                } else if (viewModel.selectedItem.value?.photo != null) {
-                    newItem = Item(currentEditingId, title, binding.etItemDescription.text.toString(), viewModel.selectedItem.value!!.photo, type)
+                    newItem = Item(
+                        id = currentEditingId,
+                        title = title,
+                        text = description,
+                        photo = selectedImageUri.toString(),
+                        link = originalLink,
+                        type = type
+                    )
+                }
+
+                else if (currentEditingId != 0 && viewModel.selectedItem.value?.photo != null) {
+                    newItem = Item(
+                        id = currentEditingId,
+                        title = title,
+                        text = description,
+                        photo = viewModel.selectedItem.value!!.photo,
+                        link = originalLink,
+                        type = type
+                    )
                 }
             }
+
             TYPE_SONG -> {
-                if (selectedAudioUri == null && currentEditingId == 0) return
+                // שיר חדש מהקבצים
                 if (selectedAudioUri != null) {
-                    newItem = Item(currentEditingId, title, selectedAudioUri.toString(), null, type)
-                } else if (viewModel.selectedItem.value?.text != null) {
-                    newItem = Item(currentEditingId, title, viewModel.selectedItem.value!!.text!!, null, type)
+                    newItem = Item(
+                        id = currentEditingId,
+                        title = title,
+                        text = selectedAudioUri.toString(),
+                        photo = null,
+                        link = null,
+                        type = type
+                    )
+                }
+                // שיר קיים (עריכה)
+                else if (currentEditingId != 0 && viewModel.selectedItem.value != null) {
+                    val oldItem = viewModel.selectedItem.value!!
+                    newItem = Item(
+                        id = currentEditingId,
+                        title = title,
+                        text = oldItem.text,
+                        photo = oldItem.photo,
+                        link = oldItem.link,
+                        type = type
+                    )
                 }
             }
+
             TYPE_QUOTE -> {
-                val quote = binding.etQuote.text.toString()
-                if (quote.isNotEmpty()) {
-                    newItem = Item(currentEditingId, "", quote, null, type)
+                val quoteContent = binding.etQuote.text.toString()
+                if (quoteContent.isNotEmpty()) {
+                    newItem = Item(
+                        id = currentEditingId,
+                        title = title.ifEmpty { "My Quote" },
+                        text = quoteContent,
+                        photo = null,
+                        link = null,
+                        type = type
+                    )
                 }
             }
         }
 
+        // ביצוע השמירה בפועל
         if (newItem != null) {
             if (currentEditingId == 0) {
+                // הוספה חדשה
                 viewModel.addItem(newItem)
                 Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show()
             } else {
+                // עדכון קיים
                 viewModel.updateItem(newItem)
-                viewModel.setItem(newItem)
+                // מאפסים את הבחירה כדי שלא נחזור למצב עריכה בפעם הבאה
+                viewModel.setItem(null)
                 Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show()
             }
+            // חזרה אחורה
             findNavController().popBackStack()
+        } else {
+            Toast.makeText(context, "Please fill all required fields", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun validateButtonState() {
         val type = binding.typeSpinner.selectedItemPosition
-        val hasTitle = binding.etItemTitle.text.toString().isNotEmpty()
+        val title = binding.etItemTitle.text.toString()
+        val hasTitle = title.isNotEmpty()
         val isEditMode = currentEditingId != 0
-        val isValid = when(type) {
-            TYPE_IMAGE -> hasTitle && (selectedImageUri != null || (isEditMode && viewModel.selectedItem.value?.photo != null))
-            TYPE_SONG -> hasTitle && (selectedAudioUri != null || (isEditMode && viewModel.selectedItem.value?.text != null))
-            TYPE_QUOTE -> binding.etQuote.text.toString().isNotEmpty()
+
+        val isValid = when (type) {
+            TYPE_IMAGE -> {
+                val hasImage = selectedImageUri != null || (isEditMode && viewModel.selectedItem.value?.photo != null)
+                hasTitle && hasImage
+            }
+            TYPE_SONG -> {
+                val hasAudio = selectedAudioUri != null || (isEditMode && (viewModel.selectedItem.value?.text != null || viewModel.selectedItem.value?.link != null))
+                hasTitle && hasAudio
+            }
+            TYPE_QUOTE -> {
+                binding.etQuote.text.toString().isNotEmpty()
+            }
             else -> false
         }
+
         binding.finishBtn.isEnabled = isValid
         binding.finishBtn.alpha = if (isValid) 1f else 0.5f
     }
 
     private fun updateViewBasedOnSelection(type: Int) {
+        // מציג/מסתיר שדות לפי הסוג הנבחר
         binding.containerImageInput.visibility = if (type == TYPE_IMAGE) View.VISIBLE else View.GONE
         binding.containerSongInput.visibility = if (type == TYPE_SONG) View.VISIBLE else View.GONE
         binding.containerQuoteInput.visibility = if (type == TYPE_QUOTE) View.VISIBLE else View.GONE
-        binding.containerTitleInput.visibility = if (type == TYPE_QUOTE) View.GONE else View.VISIBLE
+        binding.containerTitleInput.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

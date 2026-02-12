@@ -96,6 +96,14 @@
     <string name="hint_add_content">Write here whats on your mind</string>
     <string name="btn_save2">Save</string>
 
+    <string name="title_discover_inspiration">Discover Inspiration</string>
+    <string name="btn_quotes">Quotes</string>
+    <string name="btn_photos">Photos</string>
+    <string name="btn_music">Top Hits 🎵</string>
+    <string name="hint_search_song">Search specific song...</string>
+    <string name="btn_search_symbol">🔍</string>
+    <string name="msg_select_category">👆 Please select a category above to start exploring!</string>
+
     <string name="protocol_4">Protocol 4-7-8</string>
     <string name="timer_default">00:00</string>
     <string name="cycle_count">Cycles: %d</string>

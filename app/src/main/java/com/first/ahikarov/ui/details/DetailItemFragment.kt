@@ -1,5 +1,6 @@
 package com.first.ahikarov.ui.details
 
+import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.first.ahikarov.R
 import com.first.ahikarov.databinding.DetailItemLayoutBinding
 import com.first.ahikarov.ui.my_center.MyCenterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 @AndroidEntryPoint
 class DetailItemFragment : Fragment() {
 
@@ -24,7 +26,10 @@ class DetailItemFragment : Fragment() {
     private val viewModel: MyCenterViewModel by activityViewModels()
     private var mediaPlayer: MediaPlayer? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = DetailItemLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,11 +40,13 @@ class DetailItemFragment : Fragment() {
         viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
             if (item == null) return@observe
 
+            // כפתור עריכה
             binding.btnEditItem.visibility = View.VISIBLE
             binding.btnEditItem.setOnClickListener {
                 findNavController().navigate(R.id.action_detailItemFragment_to_myCenterFragment)
             }
 
+            // כותרת
             if (item.title.isEmpty()) {
                 binding.detailTitle.visibility = View.GONE
             } else {
@@ -47,16 +54,20 @@ class DetailItemFragment : Fragment() {
                 binding.detailTitle.visibility = View.VISIBLE
             }
 
+            // הצגת המידע לפי סוג
             when (item.type) {
-                0 -> {
+                0 -> { // תמונה
                     binding.detailImage.visibility = View.VISIBLE
                     binding.btnPlayAudio.visibility = View.GONE
                     binding.detailDescription.text = item.text ?: ""
 
-                    item.photo?.let { photoUri ->
+                    // טעינת תמונה (מהאינטרנט או מקומי)
+                    val imageSource = if (!item.link.isNullOrEmpty()) item.link else item.photo
+
+                    imageSource?.let { path ->
                         try {
                             Glide.with(this)
-                                .load(Uri.parse(photoUri))
+                                .load(path) // Glide יודע לטעון גם URL וגם URI
                                 .error(R.mipmap.ic_launcher)
                                 .into(binding.detailImage)
                         } catch (_: Exception) {
@@ -66,13 +77,19 @@ class DetailItemFragment : Fragment() {
                         binding.detailImage.setImageResource(R.mipmap.ic_launcher)
                     }
                 }
-                1 -> {
+                1 -> { // שיר
                     binding.detailImage.visibility = View.GONE
                     binding.btnPlayAudio.visibility = View.VISIBLE
-                    binding.detailDescription.text = "Click Play to listen 🎵"
-                    binding.btnPlayAudio.setOnClickListener { playAudio(item.text) }
+
+                    val audioSource = if (!item.link.isNullOrEmpty()) item.link else item.text
+
+                    binding.detailDescription.text = "Click Play to listen 🎵\n(Artist: ${item.text})"
+
+                    binding.btnPlayAudio.setOnClickListener {
+                        playAudio(audioSource)
+                    }
                 }
-                2 -> {
+                2 -> { // ציטוט
                     binding.detailImage.visibility = View.GONE
                     binding.btnPlayAudio.visibility = View.GONE
                     binding.detailDescription.text = item.text
@@ -86,31 +103,45 @@ class DetailItemFragment : Fragment() {
             Toast.makeText(context, "No audio file found", Toast.LENGTH_SHORT).show()
             return
         }
+
         try {
             if (mediaPlayer != null) {
                 mediaPlayer?.release()
                 mediaPlayer = null
                 binding.btnPlayAudio.text = "Play Music ▶️"
             } else {
-                mediaPlayer = MediaPlayer()
-                mediaPlayer?.setDataSource(requireContext(), Uri.parse(audioPath))
-                mediaPlayer?.prepare()
-                mediaPlayer?.start()
+                // מתחילים לנגן
+                mediaPlayer = MediaPlayer().apply {
+                    setAudioAttributes(
+                        AudioAttributes.Builder()
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .build()
+                    )
+                    setDataSource(requireContext(), Uri.parse(audioPath))
+                    prepare() // או prepareAsync() אם זה נתקע, אבל לרוב prepare מספיק לקבצים קטנים
+                    start()
+                }
+
                 binding.btnPlayAudio.text = "Stop Music ⏹️"
+
+                // כשהשיר נגמר - מחזירים את הכפתור למצב התחלתי
                 mediaPlayer?.setOnCompletionListener {
                     binding.btnPlayAudio.text = "Play Music ▶️"
                     mediaPlayer?.release()
                     mediaPlayer = null
                 }
             }
-        } catch (_: Exception) {
-            Toast.makeText(context, "Error playing file", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(context, "Error playing file: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mediaPlayer?.release()
+        mediaPlayer = null
         _binding = null
     }
 }
