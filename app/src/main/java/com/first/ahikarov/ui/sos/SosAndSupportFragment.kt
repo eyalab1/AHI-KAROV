@@ -1,26 +1,41 @@
 package com.first.ahikarov.ui.sos
 
+
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.first.ahikarov.R
 import com.first.ahikarov.databinding.SosAndSupportLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class SosAndSupportFragment : Fragment() {
-
     private var _binding: SosAndSupportLayoutBinding? = null
     private val binding get() = _binding!!
+    // ViewModel למיקום
+    private val viewModel: SosViewModel by viewModels()
+
+    private val locationRequestLauncher: ActivityResultLauncher<String> =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()){
+            if(it){
+                getLocationUpdates()
+            }}
 
     // משתנים לניהול מצב התרגיל
     private var currentStep = 0
@@ -38,9 +53,11 @@ class SosAndSupportFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // אתחול רשימת השדות
         inputsList = listOf(
             binding.etInput1,
             binding.etInput2,
@@ -54,7 +71,18 @@ class SosAndSupportFragment : Fragment() {
         binding.btnNext.setOnClickListener {
             checkAndContinue()
         }
+
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            getLocationUpdates()
+        } else {
+            locationRequestLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
     }
+
 
     private fun checkAndContinue() {
         if (currentStep == 0 || currentStep == 6) {
@@ -170,6 +198,12 @@ class SosAndSupportFragment : Fragment() {
         startActivity(intent)
     }
 
+    private fun getLocationUpdates() {
+
+        viewModel.address.observe(viewLifecycleOwner) {
+            binding.tvCurrentLocation.text = it
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

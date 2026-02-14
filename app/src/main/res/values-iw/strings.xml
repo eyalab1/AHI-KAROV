@@ -114,4 +114,14 @@
     <string name="cycle_count">מחזור %1$d</string>
     <string name="start">התחל</string>
 
+    <string name="detecting_location">מזהה מיקום</string>
+    <string name="location_unavailable">מיקום לא נמצא</string>
+    <string name="location_permission_denied">אין הרשאת מיקום</string>
+    <string name="current_location">מיקום נוכחי</string>
+    <string name="location_permission_request">Waiting for location permission...</string>
+
+
+
+
+
 </resources>

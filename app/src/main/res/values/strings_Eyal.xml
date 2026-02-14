@@ -114,4 +114,12 @@
     <string name="inhale">Inhale</string>
     <string name="exhale">Exhale</string>
     <string name="hold">Hold</string>
+
+    <string name="location_permission_request">Waiting for location permission...</string>
+    <string name="location_permission_denied">Location permission denied</string>
+
+    <string name="detecting_location">Detecting location…</string>
+    <string name="location_unavailable" >Location unavailable</string>
+    <string name="current_location" >Current location</string>
+
 </resources>
