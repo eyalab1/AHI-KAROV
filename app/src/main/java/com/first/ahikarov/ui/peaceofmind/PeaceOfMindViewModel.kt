@@ -10,8 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel // <--- הוספתי
 import java.util.Locale
 import javax.inject.Inject // <--- הוספתי
 
-@HiltViewModel // <--- 1. חובה
-class PeaceOfMindViewModel @Inject constructor() : ViewModel() { // <--- 2. בנאי ריק ש-Hilt מכיר
+@HiltViewModel
+class PeaceOfMindViewModel @Inject constructor() : ViewModel() {
 
     enum class BreathingState { IDLE, INHALE, HOLD_IN, EXHALE, HOLD_OUT }
 
@@ -55,7 +55,7 @@ class PeaceOfMindViewModel @Inject constructor() : ViewModel() { // <--- 2. בנ
     private fun startTimer() {
         timerRunnable = object : Runnable {
             override fun run() {
-                // תיקון קטן ללוגיקה כדי שזה ירוץ חלק
+
                 if (_isActive.value == true) {
                     _secondsElapsed.value = (_secondsElapsed.value ?: 0) + 1
                     handler.postDelayed(this, 1000)
@@ -85,7 +85,7 @@ class PeaceOfMindViewModel @Inject constructor() : ViewModel() { // <--- 2. בנ
         _currentState.value = nextState
     }
 
-    // הוספתי את override כדי לנקות את הטיימר כשהמסך נסגר
+
     override fun onCleared() {
         super.onCleared()
         stopTimer()
